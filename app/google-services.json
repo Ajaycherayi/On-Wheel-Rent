@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "781242445277",
+    "project_id": "on-wheel-rent",
+    "storage_bucket": "on-wheel-rent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781242445277:android:9bcb08815e043ed34bda34",
+        "android_client_info": {
+          "package_name": "com.ssmptc.onwheelrent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781242445277-mvc8kh41o6hnagu16rv2mije0mk3evip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjoysKMlJQkqb-ZPuigh8oEOKh2XJWSj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781242445277-mvc8kh41o6hnagu16rv2mije0mk3evip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
