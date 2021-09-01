@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable-v24/bg_general_list.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/bg_lower.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_dashborad.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_insert_vehicle.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_main.xml" value="0.1953125" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_otp_verification.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_search_vehicle.xml" value="0.1953125" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_sign_up.xml" value="0.209375" />
       </map>
     </option>
   </component>

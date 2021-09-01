@@ -13,7 +13,7 @@
             android:name=".User.SearchVehicle"
             android:exported="true" />
         <activity
-            android:name=".User.InsertVehicle"
+            android:name=".User.UploadVehicle"
             android:exported="true" />
         <activity
             android:name=".User.Dashboard"

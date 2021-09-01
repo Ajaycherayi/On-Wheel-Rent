@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">On Wheel Rent</string>
+
+    <!--===================== User Login Page =====================-->
+
+    <string name="login">Login </string>
+    <string name="with">With </string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+
+    <!--===================== User Sign Up Page =====================-->
+
+    <string name="signup">SignUp</string>
+    <string name="otp">get otp</string>
+    <string name="name">Full Name</string>
+
+    <!--===================== Phone number verification =====================-->
+
+    <string name="otpVerification"><b>OTP Verification</b></string>
+    <string name="noOtp">Didn\'t receive OTP?</string>
+
+    <string name="hint_otp">######</string>
+    <string name="resend">Resend</string>
+
+
+
 </resources>
