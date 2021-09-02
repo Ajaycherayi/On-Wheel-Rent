@@ -42,14 +42,7 @@ public class Login extends AppCompatActivity {
         //Create a Session
         manager = new SessionManager(getApplicationContext());
 
-        btn_backSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                    startActivity(new Intent(getApplicationContext(), SignUp.class));
-
-            }
-        });
+        btn_backSignUp.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SignUp.class)));
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +91,7 @@ public class Login extends AppCompatActivity {
                     et_phoneNumber.getEditText().setError(null);
                     String systemPassword = snapshot.child(_completePhoneNumber).child("Profile").child("password").getValue(String.class);
 
+                    assert systemPassword != null;
                     if (systemPassword.equals(_password)) {
                         et_phoneNumber.getEditText().setError(null);
 

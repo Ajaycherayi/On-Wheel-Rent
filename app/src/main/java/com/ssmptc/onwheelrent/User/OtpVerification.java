@@ -102,14 +102,6 @@ public class OtpVerification extends AppCompatActivity {
 
                 String enteredOtp = et_otp.getText().toString();
 
-                /*                if(getOtp != null){
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                nodeId = String.valueOf(node+1000);
-            */
 
                 if (getOtp != null) {
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);

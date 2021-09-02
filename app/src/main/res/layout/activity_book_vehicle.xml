@@ -42,7 +42,6 @@ android:background="@color/primary">
     android:layout_marginBottom="20dp"
     android:layout_marginTop="20dp"
     android:layout_margin="20dp"
-    android:autoSizeTextType="uniform"
     android:background="@drawable/bg_general_list"
     android:inputType="text"
     android:maxHeight="20dp"
@@ -70,8 +69,7 @@ android:background="@color/primary">
         android:layout_marginBottom="1dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="0dp"
-        tools:ignore="MissingConstraints"
-        android:layout_marginRight="1dp" />
+        tools:ignore="MissingConstraints"/>
 </LinearLayout>
 
 </LinearLayout>

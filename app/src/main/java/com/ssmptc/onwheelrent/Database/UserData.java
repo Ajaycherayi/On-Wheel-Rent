@@ -2,14 +2,14 @@ package com.ssmptc.onwheelrent.Database;
 
 public class UserData {
 
-    String name,phone,password;
+    String name,phoneNumber,password;
 
     public UserData() {
     }
 
-    public UserData(String name, String phone, String password) {
+    public UserData(String name, String phoneNumber, String password) {
         this.name = name;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.password = password;
     }
 
@@ -21,12 +21,12 @@ public class UserData {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPassword() {

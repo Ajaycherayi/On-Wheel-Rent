@@ -106,7 +106,7 @@ tools:targetApi="lollipop">
                             app:strokeWidth="1dp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_list"
+                            android:id="@+id/btn_rented"
                             style="@android:style/TextAppearance.DeviceDefault.Medium"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
@@ -210,7 +210,7 @@ tools:targetApi="lollipop">
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_generateQR"
+                    android:id="@+id/btn_logOut"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_margin="10dp"
@@ -249,7 +249,7 @@ tools:targetApi="lollipop">
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_scanQR"
+                    android:id="@+id/btn_exit"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_margin="10dp"

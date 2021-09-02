@@ -16,6 +16,9 @@
             android:name=".Vehicle.BookedVehicles"
             android:exported="true" />
         <activity
+            android:name=".Vehicle.BookVehicle"
+            android:exported="true" />
+        <activity
             android:name=".Vehicle.RentVehicle"
             android:exported="true" />
         <activity

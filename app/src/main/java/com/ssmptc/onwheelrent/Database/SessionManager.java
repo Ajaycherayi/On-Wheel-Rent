@@ -15,12 +15,6 @@ public class SessionManager {
         editor.apply();
     }
 
-    // Set Button
-    public void setShopButton(boolean disable){
-        editor.putBoolean("KEY_BUTTON",disable);
-        editor.commit();
-    }
-
     public boolean getShopButton(){
 
         return sharedPreferences.getBoolean("KEY_BUTTON",false);
