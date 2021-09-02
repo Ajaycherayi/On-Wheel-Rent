@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ssmptc.onwheelrent" >
+    package="com.ssmptc.onwheelrent">
 
     <application
         android:allowBackup="true"
@@ -8,12 +8,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.OnWheelRent" >
+        android:theme="@style/Theme.OnWheelRent">
         <activity
-            android:name=".User.SearchVehicle"
+            android:name=".Vehicle.RentedVehicles"
             android:exported="true" />
         <activity
-            android:name=".User.UploadVehicle"
+            android:name=".Vehicle.BookedVehicles"
+            android:exported="true" />
+        <activity
+            android:name=".Vehicle.RentVehicle"
             android:exported="true" />
         <activity
             android:name=".User.Dashboard"
@@ -29,7 +32,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

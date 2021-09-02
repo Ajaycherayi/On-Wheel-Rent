@@ -4,14 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable-v24/bg_general_list.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/bg_bottom.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/bg_card_user.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/bg_lower.xml" value="0.22552083333333334" />
-        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_dashborad.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/bg_progress.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_book_vehicle.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_booked_vehicles.xml" value="0.1953125" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_dashborad.xml" value="0.15314285714285714" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_insert_vehicle.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_main.xml" value="0.1953125" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_otp_verification.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_rent_vehicle.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_rented_vehicles.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_search_vehicle.xml" value="0.1953125" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_sign_up.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/progress_dialog.xml" value="0.209375" />
       </map>
     </option>
   </component>
