@@ -2,11 +2,12 @@ package com.ssmptc.onwheelrent.Database;
 
 public class VehicleData {
     String id,vehicleNumber,vehicleName,category,amount,ownerName,phone,place,imgUrl;
+    boolean booked = false;
 
     public VehicleData() {
     }
 
-    public VehicleData(String id, String vehicleNumber, String vehicleName,String category, String amount, String ownerName, String phone, String place, String imgUrl) {
+    public VehicleData(String id, String vehicleNumber, String vehicleName,String category, String amount, String ownerName, String phone, String place, String imgUrl,boolean booked) {
         this.id = id;
         this.vehicleNumber = vehicleNumber;
         this.vehicleName = vehicleName;
@@ -16,7 +17,16 @@ public class VehicleData {
         this.place = place;
         this.imgUrl = imgUrl;
         this.category = category;
+        this.booked = booked;
 
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
     }
 
     public String getCategory() {

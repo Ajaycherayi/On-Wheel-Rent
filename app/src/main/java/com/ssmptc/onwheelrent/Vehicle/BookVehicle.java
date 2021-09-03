@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.onwheelrent.Database.AdapterRented;
 import com.ssmptc.onwheelrent.Database.VehicleBookAdapter;
 import com.ssmptc.onwheelrent.Database.VehicleData;
 import com.ssmptc.onwheelrent.R;
@@ -120,7 +119,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
                             intent.putExtra("VehicleId",id); // Pass Shop Id value To ShopDetailsSingleView
                             startActivity(intent);
                         }else {
-                            Toast.makeText(BookVehicle.this, "Shop does not exist in QR Registry", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookVehicle.this, "Vehicle does not exist", Toast.LENGTH_SHORT).show();
                         }
 
                     }

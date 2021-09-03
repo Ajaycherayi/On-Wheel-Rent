@@ -43,7 +43,8 @@ public class RentVehicle extends AppCompatActivity {
     ImageView btn_back;
     Button btn_upload,btn_cancel;
 
-    private TextInputLayout et_vNumber,et_vName,et_amount,et_OwnerName,et_phone,et_place;
+    private TextInputLayout et_vNumber,et_vName,et_amount,et_OwnerName,et_place;
+    private TextView tv_phone;
     private ImageView btn_chooseImg;
     private RadioGroup radioGroup;
     private RadioButton rb_bike,rb_car,rb_other,rb_selected;
@@ -54,7 +55,7 @@ public class RentVehicle extends AppCompatActivity {
     private StorageReference storageReference;
     private Uri filePath;
     private String phone_Number;
-    private String  vId,vNumber,vName,amount,ownerName,phone,place,imgUrl;
+    private String  vId,vNumber,vName,amount,ownerName,place,imgUrl;
     SessionManager manager;
 
     @Override
@@ -74,7 +75,7 @@ public class RentVehicle extends AppCompatActivity {
         et_vName = findViewById(R.id.et_vName);
         et_amount = findViewById(R.id.et_amount);
         et_OwnerName = findViewById(R.id.et_ownerName);
-        et_phone = findViewById(R.id.et_phone);
+        tv_phone = findViewById(R.id.tv_phoneNo);
         et_place = findViewById(R.id.et_place);
         radioGroup = findViewById(R.id.radio_group);
         rb_bike = findViewById(R.id.radio_bike);
@@ -85,7 +86,7 @@ public class RentVehicle extends AppCompatActivity {
         manager = new SessionManager(getApplicationContext());
         phone_Number = manager.getPhone();
 
-        et_phone.getEditText().setText(phone_Number);
+        tv_phone.setText(phone_Number);
 
         root = FirebaseDatabase.getInstance().getReference("Vehicles");
 
@@ -106,7 +107,7 @@ public class RentVehicle extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (validateVNumber() & validateVName() & validateOwnerName() & validateAmount() & validatePhone() & validatePlace()) {
+                if (validateVNumber() & validateVName() & validateOwnerName() & validateAmount() & validatePlace()) {
 
                     if (validateCategory()){
                         if (filePath != null) {
@@ -193,14 +194,14 @@ public class RentVehicle extends AppCompatActivity {
             vName = et_vName.getEditText().getText().toString();
             amount = et_amount.getEditText().getText().toString();
             ownerName = et_OwnerName.getEditText().getText().toString();
-            phone = et_phone.getEditText().getText().toString();
             place = et_place.getEditText().getText().toString();
             place = et_place.getEditText().getText().toString();
             vId = root.push().getKey();
 
             if (vId != null) {
 
-                VehicleData vData = new VehicleData(vId,vNumber,vName,category,amount,ownerName,phone,place,uri1.toString());
+
+                VehicleData vData = new VehicleData(vId,vNumber,vName,category,amount,ownerName,phone_Number,place,uri1.toString(), false);
                 root.child(vId).setValue(vData);
 
             }
@@ -213,7 +214,6 @@ public class RentVehicle extends AppCompatActivity {
             et_place.getEditText().setText("");
             et_amount.getEditText().setText("");
             et_OwnerName.getEditText().setText("");
-            et_phone.getEditText().setText("");
             radioGroup.clearCheck();
             filePath = null;
             btn_chooseImg.setImageResource(R.drawable.ic_add);
@@ -309,24 +309,6 @@ public class RentVehicle extends AppCompatActivity {
         else{
             et_place.setError(null);
             et_place.setErrorEnabled(false);
-            return true;
-        }
-
-    }
-    private boolean validatePhone(){
-        String val = Objects.requireNonNull(et_phone.getEditText()).getText().toString().trim();
-
-        if (val.isEmpty()){
-            et_phone.setError("Field can not be empty");
-            return false;
-        }else if(val.length()>10 | val.length()<10){
-            et_phone.setError("Please Enter 10 Digit Phone Number");
-            return false;
-        }else if (!val.matches("\\w*")){
-            et_phone.setError("White spaces not allowed");
-            return false;
-        }else {
-            et_phone.setError(null);
             return true;
         }
 

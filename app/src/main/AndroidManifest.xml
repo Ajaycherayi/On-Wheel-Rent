@@ -13,7 +13,7 @@
             android:name=".Vehicle.SingleVehicleDetails"
             android:exported="true" />
         <activity
-            android:name=".Vehicle.RentedVehicles"
+            android:name=".Vehicle.UploadedVehicles"
             android:exported="true" />
         <activity
             android:name=".Vehicle.BookedVehicles"

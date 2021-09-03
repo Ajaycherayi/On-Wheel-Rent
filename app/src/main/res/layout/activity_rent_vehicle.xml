@@ -189,32 +189,25 @@ tools:targetApi="o">
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_phone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:textSize="15sp"
+            android:text="Mobile"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_phoneNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Mobile"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="1dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:expandedHintEnabled="false"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_phone"
-            app:startIconTint="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:inputType="phone"
-                android:textColor="@color/black"
-                android:autoSizeTextType="uniform"
-                android:textColorHint="@color/hintBlack"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:autoSizeTextType="uniform"
+            android:padding="8dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_general_list"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_place"

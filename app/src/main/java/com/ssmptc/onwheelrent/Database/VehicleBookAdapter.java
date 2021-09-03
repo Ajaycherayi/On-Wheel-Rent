@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.User.Dashboard;
@@ -48,10 +49,9 @@ public class VehicleBookAdapter extends RecyclerView.Adapter<VehicleBookAdapter.
         VehicleData currentData = vehicleDataList.get(position);
         holder.tv_name.setText(currentData.getVehicleName());
         holder.tv_contact.setText(currentData.getPhone());
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(currentData.getImgUrl())
                 .placeholder(R.drawable.car_rent)
-                .fit()
                 .centerInside()
                 .into(holder.imageView);
 

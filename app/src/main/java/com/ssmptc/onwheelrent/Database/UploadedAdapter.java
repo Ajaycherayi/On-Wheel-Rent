@@ -1,7 +1,6 @@
 package com.ssmptc.onwheelrent.Database;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,18 +13,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.ssmptc.onwheelrent.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterRented extends RecyclerView.Adapter<AdapterRented.ImageViewHolder>{
+public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageViewHolder>{
     private Context mContext;
     private List<VehicleData> vehicleDataList;
     private OnItemClickListener mListener;
 
-    public AdapterRented(Context context, List<VehicleData> vehicleData) {
+    public UploadedAdapter(Context context, List<VehicleData> vehicleData) {
 
         mContext = context;
         vehicleDataList = vehicleData;
@@ -34,7 +32,7 @@ public class AdapterRented extends RecyclerView.Adapter<AdapterRented.ImageViewH
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.single_vehicle_data,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.single_uploaded_vehicle,parent,false);
         return new ImageViewHolder(v);
     }
 
@@ -43,11 +41,17 @@ public class AdapterRented extends RecyclerView.Adapter<AdapterRented.ImageViewH
 
         VehicleData currentData = vehicleDataList.get(position);
         holder.tv_name.setText(currentData.getVehicleName());
-        holder.tv_contact.setText(currentData.getPhone());
-        Picasso.with(mContext)
+
+
+        if (currentData.isBooked()){
+            holder.tv_status.setText(" Booked");
+        }else {
+            holder.tv_status.setText(" Not Booked");
+        }
+
+        Glide.with(mContext)
                 .load(currentData.getImgUrl())
                 .placeholder(R.drawable.car_rent)
-                .fit()
                 .centerInside()
                 .into(holder.imageView);
 
@@ -63,14 +67,14 @@ public class AdapterRented extends RecyclerView.Adapter<AdapterRented.ImageViewH
             View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
         public ImageView imageView;
-        public TextView tv_contact,tv_name;
+        public TextView tv_status,tv_name;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.iv_vehicle);
             tv_name = itemView.findViewById(R.id.tv_vName);
-            tv_contact = itemView.findViewById(R.id.tv_contact);
+            tv_status = itemView.findViewById(R.id.tv_bookStatus);
 
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
@@ -93,7 +97,7 @@ public class AdapterRented extends RecyclerView.Adapter<AdapterRented.ImageViewH
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
             menu.setHeaderTitle("Delete");
-            MenuItem delete = menu.add(Menu.NONE, 1,1,"Delete Photo");
+            MenuItem delete = menu.add(Menu.NONE, 1,1,"Delete Vehicle");
 
             delete.setOnMenuItemClickListener(this);
         }

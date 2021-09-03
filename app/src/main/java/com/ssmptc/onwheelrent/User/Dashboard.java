@@ -1,5 +1,6 @@
 package com.ssmptc.onwheelrent.User;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,12 +12,17 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.Vehicle.BookVehicle;
 import com.ssmptc.onwheelrent.Vehicle.BookedVehicles;
 import com.ssmptc.onwheelrent.Vehicle.RentVehicle;
-import com.ssmptc.onwheelrent.Vehicle.RentedVehicles;
+import com.ssmptc.onwheelrent.Vehicle.UploadedVehicles;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -24,6 +30,7 @@ public class Dashboard extends AppCompatActivity {
     MaterialCardView btn_logOut,btn_exit;
     
     SessionManager manager;
+    String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,9 @@ public class Dashboard extends AppCompatActivity {
         btn_logOut = findViewById(R.id.btn_logOut);
         btn_exit = findViewById(R.id.btn_exit);
 
+        manager = new SessionManager(getApplicationContext());
+        phoneNumber = manager.getPhone();
+
         btn_rent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +57,22 @@ public class Dashboard extends AppCompatActivity {
         btn_rented.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RentedVehicles.class));
+
+                Query checkUser = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("phone").equalTo(phoneNumber);
+                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists())
+                            Toast.makeText(Dashboard.this, "No Vehicle Details", Toast.LENGTH_SHORT).show();
+                        else
+                            startActivity(new Intent(getApplicationContext(), UploadedVehicles.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
