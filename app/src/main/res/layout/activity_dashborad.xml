@@ -68,15 +68,15 @@ tools:targetApi="lollipop">
                         android:layout_height="60dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_find"
-                        app:tint="@color/primaryDark" />
+                        android:src="@drawable/add_vehicle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="Rent Vehicles"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryDark"
                         android:textSize="20dp" />
 
 
@@ -97,7 +97,7 @@ tools:targetApi="lollipop">
                             android:layout_alignParentLeft="true"
                             android:layout_marginStart="15dp"
                             android:layout_marginLeft="15dp"
-                            android:text="Rent Vehicles"
+                            android:text="Add Vehicles"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:textStyle="bold"
@@ -114,7 +114,7 @@ tools:targetApi="lollipop">
                             android:layout_alignParentRight="true"
                             android:layout_marginEnd="15dp"
                             android:layout_marginRight="15dp"
-                            android:text="Rented Vehicles"
+                            android:text="Uploaded Vehicles"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:textStyle="bold"
@@ -140,20 +140,19 @@ tools:targetApi="lollipop">
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/tv_shopName"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_find"
-                        app:tint="@color/primaryDark" />
+                        android:src="@drawable/book_vehicle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="Book Vehicle"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryDark"
                         android:textSize="20dp" />
 
 
@@ -228,8 +227,9 @@ tools:targetApi="lollipop">
                             android:layout_height="65dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_find"
-                            android:contentDescription="@null" />
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_unloack"
+                            app:tint="@color/primaryDark" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -240,7 +240,7 @@ tools:targetApi="lollipop">
                             android:layout_marginBottom="20dp"
                             android:text="Log out"
                             android:textStyle="bold"
-                            android:textColor="@color/white"
+                            android:textColor="@color/primaryDark"
                             style="@android:style/TextAppearance.DeviceDefault.Medium"
                             android:textSize="20sp" />
 
@@ -267,8 +267,9 @@ tools:targetApi="lollipop">
                             android:layout_height="65dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_find"
-                            android:contentDescription="@null" />
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_exit"
+                            app:tint="@color/primaryDark" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -278,7 +279,7 @@ tools:targetApi="lollipop">
                             android:layout_marginBottom="20dp"
                             android:text="Exit"
                             android:textStyle="bold"
-                            android:textColor="@color/white"
+                            android:textColor="@color/primaryDark"
                             style="@android:style/TextAppearance.DeviceDefault.Medium"
                             android:textSize="20sp" />
 

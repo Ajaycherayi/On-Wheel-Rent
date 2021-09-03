@@ -4,7 +4,6 @@
     <!--===================== User Login Page =====================-->
 
     <string name="login">Login </string>
-    <string name="with">With </string>
     <string name="phone">Phone</string>
     <string name="password">Password</string>
 

@@ -46,7 +46,6 @@ android:background="@color/primary">
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_booked"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="1dp"
