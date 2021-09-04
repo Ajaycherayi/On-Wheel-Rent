@@ -21,7 +21,7 @@ import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.Vehicle.BookVehicle;
 import com.ssmptc.onwheelrent.Vehicle.BookedVehicles;
-import com.ssmptc.onwheelrent.Vehicle.RentVehicle;
+import com.ssmptc.onwheelrent.Vehicle.AddVehicle;
 import com.ssmptc.onwheelrent.Vehicle.UploadedVehicles;
 
 public class Dashboard extends AppCompatActivity {
@@ -50,7 +50,7 @@ public class Dashboard extends AppCompatActivity {
         btn_rent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RentVehicle.class));
+                startActivity(new Intent(getApplicationContext(), AddVehicle.class));
             }
         });
 

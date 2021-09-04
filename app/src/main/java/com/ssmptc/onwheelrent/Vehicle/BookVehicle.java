@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.onwheelrent.Database.VehicleBookAdapter;
 import com.ssmptc.onwheelrent.Database.VehicleData;
@@ -33,7 +33,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
 
     private ArrayList<VehicleData> list;
     private VehicleBookAdapter vehicleAdapter;
-    DatabaseReference vehicleDb ;
+    Query vehicleDb ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
         recyclerView.setAdapter(vehicleAdapter);
         vehicleAdapter.setOnItemClickListener(BookVehicle.this);
 
-        vehicleDb = FirebaseDatabase.getInstance().getReference("Vehicles");
+        vehicleDb = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("booked").equalTo(false);
         vehicleDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -105,7 +105,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
     public void onItemClick(int position) {
 
         VehicleData vehicleData = list.get(position);
-        Toast.makeText(BookVehicle.this, "HAi/ldsl;fsl;df;sw", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookVehicle.this, "Vehicle Details", Toast.LENGTH_SHORT).show();
 
         String id = vehicleData.getId();
 
@@ -115,7 +115,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         if (snapshot.exists()){
-                            Intent intent = new Intent(BookVehicle.this, SingleVehicleDetails.class);
+                            Intent intent = new Intent(BookVehicle.this, SingleVehicleForBook.class);
                             intent.putExtra("VehicleId",id); // Pass Shop Id value To ShopDetailsSingleView
                             startActivity(intent);
                         }else {

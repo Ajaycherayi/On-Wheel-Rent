@@ -1,6 +1,5 @@
 package com.ssmptc.onwheelrent.Vehicle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,26 +17,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ssmptc.onwheelrent.Database.SessionManager;
-import com.ssmptc.onwheelrent.Database.UserData;
 import com.ssmptc.onwheelrent.Database.VehicleData;
-import com.ssmptc.onwheelrent.Database.VehicleImageUrl;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.User.Dashboard;
 
 import java.util.Objects;
 
-public class RentVehicle extends AppCompatActivity {
+public class AddVehicle extends AppCompatActivity {
 
 
     ImageView btn_back;
@@ -112,15 +104,15 @@ public class RentVehicle extends AppCompatActivity {
                     if (validateCategory()){
                         if (filePath != null) {
                             uploadData(filePath);
-                            Toast.makeText(RentVehicle.this, "Uploading...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddVehicle.this, "Uploading...", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(RentVehicle.this, "Please Select Image", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddVehicle.this, "Please Select Image", Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(RentVehicle.this, "Please select a category", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddVehicle.this, "Please select a category", Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(RentVehicle.this, "Please fill all the data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddVehicle.this, "Please fill all the data", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -135,7 +127,7 @@ public class RentVehicle extends AppCompatActivity {
     private void loadProgressDialog() {
 
         //Initialize ProgressDialog
-        progressDialog = new ProgressDialog(RentVehicle.this);
+        progressDialog = new ProgressDialog(AddVehicle.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -206,7 +198,7 @@ public class RentVehicle extends AppCompatActivity {
 
             }
 
-            Toast.makeText(RentVehicle.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddVehicle.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
 
             et_vNumber.getEditText().setText("");
@@ -228,7 +220,7 @@ public class RentVehicle extends AppCompatActivity {
 
         }).addOnFailureListener(e -> {
             progressDialog.dismiss();
-            Toast.makeText(RentVehicle.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddVehicle.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
         });
     }
 

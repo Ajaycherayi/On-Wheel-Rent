@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnWheelRent">
         <activity
-            android:name=".Vehicle.SingleVehicleDetails"
+            android:name=".Vehicle.SingleVehicleForBook"
             android:exported="true" />
         <activity
             android:name=".Vehicle.UploadedVehicles"
@@ -22,7 +22,10 @@
             android:name=".Vehicle.BookVehicle"
             android:exported="true" />
         <activity
-            android:name=".Vehicle.RentVehicle"
+            android:name=".Vehicle.SingleVehicleBooked"
+            android:exported="true" />
+        <activity
+            android:name=".Vehicle.AddVehicle"
             android:exported="true" />
         <activity
             android:name=".User.Dashboard"

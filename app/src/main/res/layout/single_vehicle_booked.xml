@@ -6,8 +6,8 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fillViewport="true"
-    android:background="@color/primary"
-tools:context=".Vehicle.SingleVehicleForBook"
+android:background="@color/primary"
+tools:context=".Vehicle.SingleVehicleBooked"
 android:orientation="vertical"
 tools:targetApi="o" >
 
@@ -214,15 +214,16 @@ tools:targetApi="o" >
             android:textSize="20sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_book"
+            android:id="@+id/btn_unBook"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="Book Vehicle"
+            android:text="Vehicle Booked"
             android:textColor="@color/white"
+            android:backgroundTint="@color/light_green"
+            android:textSize="15sp"
+            android:textStyle="bold"
             app:cornerRadius="5dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />

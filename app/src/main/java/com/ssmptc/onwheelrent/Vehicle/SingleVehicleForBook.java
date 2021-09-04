@@ -6,25 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.res.loader.ResourcesProvider;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
+import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
 
-public class SingleVehicleDetails extends AppCompatActivity {
+public class SingleVehicleForBook extends AppCompatActivity {
 
     Button btn_call,btn_book;
     ImageView img_vehicle,btn_back;
@@ -33,9 +31,11 @@ public class SingleVehicleDetails extends AppCompatActivity {
 
     private TextView tv_vName,tv_category,tv_vNumber,tv_place,tv_amount,tv_OwnerName,tv_phone;
 
-    private String vehicleId,vehicleName,imgUrl;
+    private String vehicleId,vehicleName,imgUrl,phoneNumber,name;
     private boolean bookStatus;
-    private DatabaseReference vehicleDb;
+    private DatabaseReference vehicleDb,bookDb,userDb;
+
+    SessionManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +61,18 @@ public class SingleVehicleDetails extends AppCompatActivity {
         vehicleId = getIntent().getStringExtra("VehicleId");
 
         //--------------- Initialize ProgressDialog -----------
-        progressDialog = new ProgressDialog(SingleVehicleDetails.this);
+        progressDialog = new ProgressDialog(SingleVehicleForBook.this);
         progressDialog.show();
         progressDialog.setCancelable(false);
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        manager = new SessionManager(getApplicationContext());
+        phoneNumber = manager.getPhone();
+        name = manager.getName();
+
+        bookDb = FirebaseDatabase.getInstance().getReference("Vehicles").child(vehicleId).child("bookedBy");
+        userDb = FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles");
 
         vehicleDb = FirebaseDatabase.getInstance().getReference("Vehicles").child(vehicleId);
         vehicleDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,7 +95,7 @@ public class SingleVehicleDetails extends AppCompatActivity {
 
 
 
-                Glide.with(SingleVehicleDetails.this)
+                Glide.with(SingleVehicleForBook.this)
                         .load(imgUrl)
                         .placeholder(R.mipmap.ic_launcher_round)
                         .error(R.mipmap.ic_launcher_round)
@@ -134,6 +141,27 @@ public class SingleVehicleDetails extends AppCompatActivity {
 
                 vehicleDb.child("booked").setValue(false);
 
+                bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            bookDb.removeValue();
+                            userDb.child(vehicleId).removeValue();
+                        }else{
+                            Toast.makeText(SingleVehicleForBook.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+
 
             }
         });
@@ -165,6 +193,30 @@ public class SingleVehicleDetails extends AppCompatActivity {
                 btn_book.setBackgroundColor(getResources().getColor(R.color.light_green));
 
                 vehicleDb.child("booked").setValue(true);
+
+                bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists()){
+                            bookDb.child("phoneNumber").setValue(phoneNumber);
+                            bookDb.child("name").setValue(name);
+                            userDb.child(vehicleId).setValue(vehicleId);
+
+
+                        }else{
+                            Toast.makeText(SingleVehicleForBook.this, "Error occur to book vehicle ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
 
 
             }
