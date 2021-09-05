@@ -48,7 +48,7 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.uploaded_vehicles);
+        setContentView(R.layout.recycler_view_uploaded);
 
         btn_back = findViewById(R.id.btn_back);
 

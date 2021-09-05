@@ -32,7 +32,7 @@ public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageV
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.single_uploaded_vehicle,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.one_uploaded_vehicle,parent,false);
         return new ImageViewHolder(v);
     }
 
@@ -45,6 +45,8 @@ public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageV
 
         if (currentData.isBooked()){
             holder.tv_status.setText(" Booked");
+            holder.tv_status.setBackgroundResource(R.drawable.bg_booking_active);
+            holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.black));
         }else {
             holder.tv_status.setText(" Not Booked");
         }

@@ -213,12 +213,48 @@ tools:targetApi="o" >
             android:textColor="@color/black"
             android:textSize="20sp" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_locate"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:text="locate"
+                app:icon="@drawable/ic_location"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/light_red"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:cornerRadius="5dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                app:icon="@drawable/ic_call"
+                android:layout_alignParentEnd="true"
+                android:text="call"
+                android:textColor="@color/white"
+                app:cornerRadius="5dp"
+                android:backgroundTint="@color/light_blue"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+
+        </RelativeLayout>
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unBook"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
             android:text="Vehicle Booked"
             android:textColor="@color/white"
             android:backgroundTint="@color/light_green"
@@ -228,17 +264,7 @@ tools:targetApi="o" >
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_call"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="Call"
-            android:textColor="@color/white"
-            app:cornerRadius="5dp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1dp" />
+
 
 
     </LinearLayout>

@@ -18,11 +18,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -51,10 +53,11 @@ public class UpdateVehicleDetails extends AppCompatActivity {
     //vars
     private DatabaseReference root,rootImage,reference ;
     private StorageReference storageReference;
+    private FirebaseStorage ImgStorage;
     private Uri filePath;
     private String phone_Number;
     private String  vId,vNumber,vName,amount,ownerName,place,imgUrl;
-    private
+    private Boolean ImgPick = false;
     SessionManager manager;
 
     @Override
@@ -65,7 +68,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
         //---------------Get Data From Previous Activity----------------
         vehicleId = getIntent().getStringExtra("VehicleId");
 
-        btn_back = findViewById(R.id.btn_backToD);
+        btn_back = findViewById(R.id.btn_back);
 
         btn_chooseImg = findViewById(R.id.btn_chooseImage);
         btn_update= findViewById(R.id.btn_update);
@@ -84,6 +87,8 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
         manager = new SessionManager(getApplicationContext());
         phone_Number = manager.getPhone();
+
+        ImgStorage= FirebaseStorage.getInstance();
 
         reference = FirebaseDatabase.getInstance().getReference("Vehicles").child(vehicleId);
 
@@ -134,7 +139,6 @@ public class UpdateVehicleDetails extends AppCompatActivity {
                 String _place = snapshot.child("place").getValue(String.class);
                 String _category = snapshot.child("category").getValue(String.class);
 
-                Toast.makeText(UpdateVehicleDetails.this, "hai", Toast.LENGTH_SHORT).show();
 
                 rb_selected = findViewById(radioGroup.getCheckedRadioButtonId());
 
@@ -143,11 +147,13 @@ public class UpdateVehicleDetails extends AppCompatActivity {
                         _amount.equals(et_amount.getEditText().getText().toString()) &&
                         _category.equals(rb_selected.getText().toString()) &&
                         _place.equals(et_place.getEditText().getText().toString()) &&
-                        _ownerName.equals(et_OwnerName.getEditText().getText().toString())){
+                        _ownerName.equals(et_OwnerName.getEditText().getText().toString()) && filePath == null){
 
                     Toast.makeText(UpdateVehicleDetails.this, "Same data no changes", Toast.LENGTH_SHORT).show();
 
                 }else {
+                    loadProgressDialog();
+                    Toast.makeText(UpdateVehicleDetails.this, "Data Updating", Toast.LENGTH_SHORT).show();
 
                     reference.child("vehicleName").setValue(et_vName.getEditText().getText().toString());
                     reference.child("vehicleNumber").setValue(et_vNumber.getEditText().getText().toString());
@@ -156,12 +162,15 @@ public class UpdateVehicleDetails extends AppCompatActivity {
                     reference.child("place").setValue(et_place.getEditText().getText().toString());
                     reference.child("ownerName").setValue(et_OwnerName.getEditText().getText().toString());
 
-                    Toast.makeText(UpdateVehicleDetails.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                    if (filePath == null) {
+                        Toast.makeText(UpdateVehicleDetails.this, "Updated", Toast.LENGTH_SHORT).show();
+                    }
+
+                    progressDialog.dismiss();
                 }
 
                 if (filePath != null) {
                     updateImg(filePath);
-                    Toast.makeText(UpdateVehicleDetails.this, "Updating...", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -172,25 +181,20 @@ public class UpdateVehicleDetails extends AppCompatActivity {
         });
         progressDialog.dismiss();
 
-//            if (validateCategory()){
-//                if (filePath != null) {
-//                    uploadData(filePath);
-//                    Toast.makeText(UpdateVehicleDetails.this, "Uploading...", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(UpdateVehicleDetails.this, "Please Select Image", Toast.LENGTH_SHORT).show();
-//                }
-//            }else {
-//                Toast.makeText(UpdateVehicleDetails.this, "Please select a category", Toast.LENGTH_SHORT).show();
-//            }
-//        }else {
-//            Toast.makeText(UpdateVehicleDetails.this, "Please fill all the data", Toast.LENGTH_SHORT).show();
-//        }
-
-
     }
 
     private void updateImg(Uri uri) {
+
         loadProgressDialog();
+
+        if (imgUrl != null){
+            StorageReference imageRef = ImgStorage.getReferenceFromUrl(imgUrl);
+
+            imageRef.delete().addOnSuccessListener(aVoid -> {
+                reference.child("imgUrl").removeValue();
+            });
+
+        }
 
         StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
 
@@ -199,12 +203,12 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
             reference.child("imgUrl").setValue(uri1.toString());
 
-            Toast.makeText(UpdateVehicleDetails.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+            ImgPick = true;
+
             progressDialog.dismiss();
 
             filePath = null;
-            btn_chooseImg.setImageResource(R.drawable.ic_add);
-
+            Toast.makeText(UpdateVehicleDetails.this, "Image Updated", Toast.LENGTH_SHORT).show();
 
         })).addOnProgressListener(snapshot -> {
 
@@ -212,6 +216,8 @@ public class UpdateVehicleDetails extends AppCompatActivity {
             progressDialog.dismiss();
             Toast.makeText(UpdateVehicleDetails.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
         });
+
+
     }
 
     private void loadData() {
@@ -227,6 +233,14 @@ public class UpdateVehicleDetails extends AppCompatActivity {
                 et_amount.getEditText().setText(snapshot.child("amount").getValue(String.class));
                 et_OwnerName.getEditText().setText(snapshot.child("ownerName").getValue(String.class));
                 et_place.getEditText().setText(snapshot.child("place").getValue(String.class));
+
+                imgUrl = snapshot.child("imgUrl").getValue(String.class);
+
+                Picasso.with(UpdateVehicleDetails.this)
+                        .load(imgUrl)
+                        .placeholder(R.mipmap.ic_launcher_round)
+                        .error(R.mipmap.ic_launcher_round)
+                        .into(btn_chooseImg);
 
                 String category = snapshot.child("category").getValue(String.class);
 

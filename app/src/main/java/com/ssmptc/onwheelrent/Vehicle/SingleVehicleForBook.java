@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,14 +26,14 @@ import com.ssmptc.onwheelrent.R;
 
 public class SingleVehicleForBook extends AppCompatActivity {
 
-    Button btn_call,btn_book;
+    Button btn_call,btn_book,btn_locate;
     ImageView img_vehicle,btn_back;
 
     ProgressDialog progressDialog;
 
     private TextView tv_vName,tv_category,tv_vNumber,tv_place,tv_amount,tv_OwnerName,tv_phone;
 
-    private String vehicleId,vehicleName,imgUrl,phoneNumber,name;
+    private String vehicleId,vehicleName,imgUrl,phoneNumber,name,place,ownerPhone;
     private boolean bookStatus;
     private DatabaseReference vehicleDb,bookDb,userDb;
 
@@ -46,6 +48,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
         btn_book = findViewById(R.id.btn_book);
         btn_call = findViewById(R.id.btn_call);
+        btn_locate = findViewById(R.id.btn_locate);
 
         tv_vName = findViewById(R.id.tv_vName);
         tv_vNumber = findViewById(R.id.tv_vNumber);
@@ -87,8 +90,12 @@ public class SingleVehicleForBook extends AppCompatActivity {
                 tv_category.setText(snapshot.child("category").getValue(String.class));
                 tv_amount.setText(snapshot.child("amount").getValue(String.class));
                 tv_OwnerName.setText(snapshot.child("ownerName").getValue(String.class));
-                tv_phone.setText(snapshot.child("phone").getValue(String.class));
-                tv_place.setText(snapshot.child("place").getValue(String.class));
+
+                ownerPhone = snapshot.child("phone").getValue(String.class);
+                tv_phone.setText(ownerPhone);
+
+                place = snapshot.child("place").getValue(String.class);
+                tv_place.setText(place);
                 imgUrl = snapshot.child("imgUrl").getValue(String.class);
 
                 progressDialog.dismiss();
@@ -122,6 +129,26 @@ public class SingleVehicleForBook extends AppCompatActivity {
                 }
             }
 
+        });
+
+        btn_locate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String strUri = "http://maps.google.com/maps?q=" + place ;
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                startActivity(intent);
+            }
+        });
+
+        btn_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + ownerPhone));
+                startActivity(callIntent);
+
+            }
         });
 
     }
