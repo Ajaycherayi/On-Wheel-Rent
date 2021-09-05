@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnWheelRent">
         <activity
+            android:name=".Vehicle.UpdateVehicleDetails"
+            android:exported="true" />
+        <activity
+            android:name=".Vehicle.SingleUploadedVehicles"
+            android:exported="true" />
+        <activity
             android:name=".Vehicle.SingleVehicleForBook"
             android:exported="true" />
         <activity

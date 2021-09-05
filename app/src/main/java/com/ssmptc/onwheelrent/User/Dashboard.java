@@ -152,5 +152,11 @@ public class Dashboard extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Thank you :)", Toast.LENGTH_SHORT).show();
+        finishAffinity();
+    }
     
 }

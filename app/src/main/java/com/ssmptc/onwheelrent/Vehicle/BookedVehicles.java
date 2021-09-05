@@ -31,6 +31,7 @@ import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.Database.VehicleBookAdapter;
 import com.ssmptc.onwheelrent.Database.VehicleData;
 import com.ssmptc.onwheelrent.R;
+import com.ssmptc.onwheelrent.User.Dashboard;
 
 import java.util.ArrayList;
 
@@ -145,6 +146,12 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
                     }
                 });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), Dashboard.class));
+        finish();
     }
 
 

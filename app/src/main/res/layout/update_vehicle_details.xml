@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Vehicle.UpdateVehicleDetails"
+android:background="@color/primary"
+android:transitionName="transition_edit_shop_profile"
+tools:targetApi="o">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/btn_backToD"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_back"
+        app:tint="@color/black"
+        android:contentDescription="@null"
+        android:focusable="true"
+        android:layout_marginStart="20dp"
+        android:transitionName="transition_shop_dashboard"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="-40dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_add_vehicle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Details"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="10dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg_bottom"
+        android:padding="15dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_vName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Vehicle Name"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:expandedHintEnabled="false"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_vehicle"
+            app:startIconTint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:inputType="textCapSentences"
+                android:autoSizeTextType="uniform"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintBlack"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_vNumber"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="Vehicle Number"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:expandedHintEnabled="false"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_vnumber"
+            app:startIconTint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:inputType="textCapCharacters"
+                android:autoSizeTextType="uniform"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintBlack"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_amount"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Amount/Day"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:endIconTint="@color/black"
+            app:expandedHintEnabled="false"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_amount"
+            app:startIconTint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@null"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:autoSizeTextType="uniform"
+                android:textColorHint="@color/hintBlack"
+                android:textSize="20sp"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:text="Contact Details"
+                android:textColor="@color/primaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="264dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="33dp"
+                android:background="@color/primaryDark" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_ownerName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Owner Name"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:expandedHintEnabled="false"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_user"
+            app:startIconTint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:inputType="textCapSentences"
+                android:autoSizeTextType="uniform"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintBlack"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_place"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="Place"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:expandedHintEnabled="false"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_location"
+            app:startIconTint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:inputType="textCapSentences"
+                android:textColor="@color/black"
+                android:autoSizeTextType="uniform"
+                android:textColorHint="@color/hintBlack"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Category"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_general_list"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+
+            <RadioButton
+                android:id="@+id/radio_bike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bike"
+                android:textColor="@color/black"
+                app:buttonTint="@color/primaryDark" />
+
+            <RadioButton
+                android:id="@+id/radio_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Car"
+                android:textColor="@color/black"
+                app:buttonTint="@color/primaryDark" />
+
+            <RadioButton
+                android:id="@+id/radio_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Other"
+                android:textColor="@color/black"
+                app:buttonTint="@color/primaryDark" />
+        </RadioGroup>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autoSizeTextType="uniform"
+            android:text="uploadImages"
+            android:textColor="@color/primaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btn_chooseImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_add"
+            android:contentDescription="@null" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:backgroundTint="@color/light_red"
+                android:text="cancel"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                app:backgroundTint="@color/light_green"
+                android:text="Update"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+</ScrollView>

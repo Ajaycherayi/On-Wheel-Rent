@@ -53,7 +53,7 @@ public class AddVehicle extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rent_vehicle);
+        setContentView(R.layout.add_vehicle);
 
 
         btn_back = findViewById(R.id.btn_backToD);
@@ -310,6 +310,10 @@ public class AddVehicle extends AppCompatActivity {
         return radioGroup.getCheckedRadioButtonId() != -1;
     }
 
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),Dashboard.class));
+        finish();
+    }
 
 }

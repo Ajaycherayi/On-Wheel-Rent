@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/lock_open/baseline_lock_open_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/call/baseline_call_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,7 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_unloack" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_call" />
                             <entry key="sourceFile" value="C:\Users\AJAY\AndroidStudioProjects\OnWheelRent" />
                           </map>
                         </option>

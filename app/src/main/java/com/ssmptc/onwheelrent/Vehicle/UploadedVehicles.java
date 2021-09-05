@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +33,8 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
     private  RecyclerView recyclerView;
     private ProgressDialog progressDialog;
 
+    ImageView btn_back;
+
     private ArrayList<VehicleData> list;
     private UploadedAdapter uploadedAdapter;
     DatabaseReference vehicleDb ;
@@ -46,6 +50,8 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uploaded_vehicles);
 
+        btn_back = findViewById(R.id.btn_back);
+
         //Initialize ProgressDialog
         progressDialog = new ProgressDialog(UploadedVehicles.this);
         progressDialog.show();
@@ -53,6 +59,7 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         manager= new SessionManager(getApplicationContext());
+
 
         phoneNumber = manager.getPhone();
         ImgStorage= FirebaseStorage.getInstance();
@@ -100,12 +107,44 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
             }
         });
 
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Dashboard.class));
+                finish();
+            }
+        });
+
     }
 
     @Override
     public void onItemClick(int position) {
 
-        Toast.makeText(UploadedVehicles.this, "Press 1 sec", Toast.LENGTH_SHORT).show();
+        VehicleData vehicleData = list.get(position);
+        Toast.makeText(UploadedVehicles.this, "Vehicle Details", Toast.LENGTH_SHORT).show();
+
+        String id = vehicleData.getId();
+
+        FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("id").equalTo(id)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (snapshot.exists()){
+                            Intent intent = new Intent(UploadedVehicles.this, SingleUploadedVehicles.class);
+                            intent.putExtra("VehicleId",id); // Pass Shop Id value To ShopDetailsSingleView
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(UploadedVehicles.this, "Vehicle does not exist", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
     }
 
@@ -142,4 +181,11 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),Dashboard.class));
+        finish();
+    }
+
 }

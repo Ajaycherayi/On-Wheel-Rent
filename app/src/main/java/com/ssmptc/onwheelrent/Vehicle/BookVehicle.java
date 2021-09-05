@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.onwheelrent.Database.VehicleBookAdapter;
 import com.ssmptc.onwheelrent.Database.VehicleData;
 import com.ssmptc.onwheelrent.R;
+import com.ssmptc.onwheelrent.User.Dashboard;
 
 import java.util.ArrayList;
 
@@ -62,10 +63,15 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                list.clear();
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
                     VehicleData vehicleData = dataSnapshot.getValue(VehicleData.class);
+                    assert vehicleData != null;
+                    vehicleData.setId (dataSnapshot.getKey());
                     list.add(vehicleData);
+
 
                 }
                 recyclerView.setAdapter(vehicleAdapter);
@@ -131,4 +137,11 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
                 });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), Dashboard.class));
+        finish();
+    }
+
 }
