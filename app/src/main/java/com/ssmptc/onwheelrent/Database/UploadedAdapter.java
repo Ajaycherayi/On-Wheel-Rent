@@ -32,7 +32,7 @@ public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageV
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.one_uploaded_vehicle,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.card_view_uploaded_vehicle,parent,false);
         return new ImageViewHolder(v);
     }
 

@@ -5,14 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,6 +36,9 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
 
+    TextInputLayout drop_menu;
+    AutoCompleteTextView drop_list;
+
     private EditText et_search;
 
     private ArrayList<VehicleData> list;
@@ -39,7 +48,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_vehicle);
+        setContentView(R.layout.recycler_view_for_booking);
 
         et_search = findViewById(R.id.et_search);
 
@@ -49,44 +58,120 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
+        drop_menu = findViewById(R.id.menu_drop);
+        drop_list = findViewById(R.id.at_category);
+
+        String [] items = {"all","Car","bike","Others"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(BookVehicle.this,R.layout.category_list,items);
+
+        drop_list.setAdapter(arrayAdapter);
+
+
         recyclerView = findViewById(R.id.rv_book);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
         list = new ArrayList<>();
         vehicleAdapter = new VehicleBookAdapter(BookVehicle.this,list);
         recyclerView.setAdapter(vehicleAdapter);
-        vehicleAdapter.setOnItemClickListener(BookVehicle.this);
 
-        vehicleDb = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("booked").equalTo(false);
-        vehicleDb.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+
+        search();
+
+        filter();
+
+        loadRecycler();
+
+
+
+
+
+
+
+    }
+
+    private void filter() {
+        drop_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String category = String.valueOf(parent.getItemAtPosition(position));
 
-                list.clear();
+                vehicleDb = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("booked").equalTo(false);
+                vehicleDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        if (!category.equals("all")){
 
-                    VehicleData vehicleData = dataSnapshot.getValue(VehicleData.class);
-                    assert vehicleData != null;
-                    vehicleData.setId (dataSnapshot.getKey());
-                    list.add(vehicleData);
+                            if (snapshot.exists()){
+
+                                FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("category").equalTo(category)
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot categorySnapshot) {
+
+                                                if (categorySnapshot.exists()){
+
+                                                    list.clear();
+
+                                                    for (DataSnapshot dataSnapshot : categorySnapshot.getChildren()){
+
+                                                        VehicleData vehicleData = dataSnapshot.getValue(VehicleData.class);
+                                                        list.add(vehicleData);
+                                                        vehicleAdapter = new VehicleBookAdapter(BookVehicle.this,list);
+                                                        recyclerView.setAdapter(vehicleAdapter);
+                                                        vehicleAdapter.notifyDataSetChanged();
+                                                        vehicleAdapter.setOnItemClickListener(BookVehicle.this);
+                                                    }
+
+                                                    progressDialog.dismiss();
 
 
-                }
-                recyclerView.setAdapter(vehicleAdapter);
-                progressDialog.dismiss();
+                                                }else {
+                                                    list.clear();
+                                                    vehicleAdapter.notifyDataSetChanged();
+                                                }
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                progressDialog.dismiss();
-                Toast.makeText(BookVehicle.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+                            }else {
+                                Toast.makeText(BookVehicle.this, "Failed to load Data", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else {
+                            loadRecycler();
+                        }
+
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(BookVehicle.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
             }
         });
+    }
 
-        //----------------------Search Shop Details----------------
+    //----------------------Search Shop Details----------------
+    private void search() {
         if (et_search != null){
 
             et_search.addTextChangedListener(new TextWatcher() {
@@ -103,8 +188,38 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
                 }
             });
         }
+    }
+
+    private void loadRecycler() {
+        vehicleDb = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("booked").equalTo(false);
+        vehicleDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                list.clear();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                    VehicleData vehicleData = dataSnapshot.getValue(VehicleData.class);
+                    list.add(vehicleData);
+                    vehicleAdapter = new VehicleBookAdapter(BookVehicle.this,list);
+                    recyclerView.setAdapter(vehicleAdapter);
+                    vehicleAdapter.notifyDataSetChanged();
+                    vehicleAdapter.setOnItemClickListener(BookVehicle.this);
+                }
+
+                progressDialog.dismiss();
+
+            }
 
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                progressDialog.dismiss();
+                Toast.makeText(BookVehicle.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

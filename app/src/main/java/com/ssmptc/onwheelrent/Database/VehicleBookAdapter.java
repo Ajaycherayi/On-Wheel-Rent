@@ -1,7 +1,6 @@
 package com.ssmptc.onwheelrent.Database;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.R;
-import com.ssmptc.onwheelrent.User.Dashboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,7 @@ public class VehicleBookAdapter extends RecyclerView.Adapter<VehicleBookAdapter.
     @NonNull
     @Override
     public VehicleBookAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.single_vehicle_data,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.card_view_all_vehicle,parent,false);
         return new ImageViewHolder(v);
     }
 
@@ -54,6 +51,8 @@ public class VehicleBookAdapter extends RecyclerView.Adapter<VehicleBookAdapter.
                 .placeholder(R.drawable.car_rent)
                 .centerInside()
                 .into(holder.imageView);
+
+
 
     }
 

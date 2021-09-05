@@ -26,8 +26,8 @@ import com.ssmptc.onwheelrent.Vehicle.UploadedVehicles;
 
 public class Dashboard extends AppCompatActivity {
 
-    Button btn_rent,btn_rented,btn_book,btn_booked;
-    MaterialCardView btn_logOut,btn_exit;
+
+    MaterialCardView btn_logOut,btn_exit,btn_rent,btn_rented,btn_book,btn_booked;
 
 
     
@@ -37,7 +37,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashborad);
+        setContentView(R.layout.dashborad);
 
         btn_rent = findViewById(R.id.btn_Rent);
         btn_rented = findViewById(R.id.btn_rented);

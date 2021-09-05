@@ -30,7 +30,7 @@
             android:contentDescription="@null"
             android:focusable="true"
             android:src="@drawable/ic_back"
-            app:tint="@color/black" />
+            app:tint="@color/primaryDark" />
 
 
         <TextView

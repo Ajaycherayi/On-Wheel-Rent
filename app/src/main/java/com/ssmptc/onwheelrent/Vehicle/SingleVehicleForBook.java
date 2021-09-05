@@ -42,7 +42,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_vehicle_details);
+        setContentView(R.layout.details_one_vehicle_data);
 
         btn_back = findViewById(R.id.btn_back);
 
@@ -258,6 +258,12 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), BookVehicle.class));
+        finish();
     }
 
 

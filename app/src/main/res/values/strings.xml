@@ -21,5 +21,12 @@
     <string name="hint_otp">######</string>
     <string name="resend">Resend</string>
 
+    <string-array name="vehicle_category">
+        <item>All</item>
+        <item>Car</item>
+        <item>bike</item>
+        <item>Others</item>
+    </string-array>
+
 
 </resources>

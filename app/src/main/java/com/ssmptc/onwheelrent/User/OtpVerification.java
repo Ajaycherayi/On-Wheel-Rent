@@ -51,7 +51,7 @@ public class OtpVerification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otp_verification);
+        setContentView(R.layout.otp_verification);
 
         et_otp = findViewById(R.id.et_otp);
 
