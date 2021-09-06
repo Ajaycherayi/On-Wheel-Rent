@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -141,8 +142,8 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
                 Picasso.with(SingleUploadedVehicles.this)
                         .load(imgUrl)
-                        .placeholder(R.mipmap.ic_launcher_round)
-                        .error(R.mipmap.ic_launcher_round)
+                        .placeholder(R.drawable.bg_loading)
+                        .error(R.drawable.bg_loading)
                         .into(img_vehicle);
 
 
@@ -151,6 +152,13 @@ public class SingleUploadedVehicles extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
@@ -187,7 +195,7 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
         Toast.makeText(this, "Delete Click", Toast.LENGTH_SHORT).show();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 

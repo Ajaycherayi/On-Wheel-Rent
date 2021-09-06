@@ -238,8 +238,8 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
                 Picasso.with(UpdateVehicleDetails.this)
                         .load(imgUrl)
-                        .placeholder(R.mipmap.ic_launcher_round)
-                        .error(R.mipmap.ic_launcher_round)
+                        .placeholder(R.drawable.bg_loading)
+                        .error(R.drawable.bg_loading)
                         .into(btn_chooseImg);
 
                 String category = snapshot.child("category").getValue(String.class);
@@ -248,7 +248,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
                 if (category.equals("Car")){
                     rb_car.setChecked(true);
                 }
-                if (category.equals("bike")){
+                if (category.equals("Bike")){
                     rb_bike.setChecked(true);
                 }
                 if (category.equals("Other")){

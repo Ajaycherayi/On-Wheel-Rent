@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,7 +32,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    private TextView tv_vName,tv_category,tv_vNumber,tv_place,tv_amount,tv_OwnerName,tv_phone;
+    private TextView tv_vName,tv_category,tv_vNumber,tv_place,tv_amount,tv_OwnerName,tv_phone,tv_title;
 
     private String vehicleId,vehicleName,imgUrl,phoneNumber,name,place,ownerPhone;
     private boolean bookStatus;
@@ -57,6 +58,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
         tv_OwnerName = findViewById(R.id.tv_ownerName);
         tv_phone = findViewById(R.id.tv_phoneNo);
         tv_place = findViewById(R.id.tv_place);
+        tv_title = findViewById(R.id.title_Name);
 
         img_vehicle = findViewById(R.id.img_vehicle);
 
@@ -85,6 +87,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
                 //---------------Get Data From Shop DataBase----------------
                 vehicleName = snapshot.child("vehicleName").getValue(String.class);
                 tv_vName.setText(vehicleName);
+                tv_title.setText(vehicleName);
 
                 tv_vNumber.setText(snapshot.child("vehicleNumber").getValue(String.class));
                 tv_category.setText(snapshot.child("category").getValue(String.class));
@@ -104,8 +107,8 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
                 Glide.with(SingleVehicleForBook.this)
                         .load(imgUrl)
-                        .placeholder(R.mipmap.ic_launcher_round)
-                        .error(R.mipmap.ic_launcher_round)
+                        .placeholder(R.drawable.bg_loading)
+                        .error(R.drawable.bg_loading)
                         .into(img_vehicle);
 
 
@@ -155,7 +158,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
     private void unBookVehicle() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 
@@ -208,7 +211,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
     private void bookVehicle() {
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 
@@ -217,7 +220,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 btn_book.setText("Vehicle Booked");
-                btn_book.setBackgroundColor(getResources().getColor(R.color.light_green));
+                btn_book.setBackgroundColor(getResources().getColor(R.color.active_green));
 
                 vehicleDb.child("booked").setValue(true);
 

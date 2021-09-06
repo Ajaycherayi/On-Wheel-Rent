@@ -148,39 +148,6 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
 
     }
 
-    @Override
-    public void onDeleteClick(int position) {
-        Toast.makeText(this, "Delete Click", Toast.LENGTH_SHORT).show();
-
-        VehicleData selectedVehicle = list.get(position);
-
-        String selectedKey = selectedVehicle.getId();
-
-        StorageReference imageRef = ImgStorage.getReferenceFromUrl(selectedVehicle.getImgUrl());
-
-        imageRef.delete().addOnSuccessListener(aVoid -> {
-
-            vehicleDb.child(selectedKey).removeValue();
-            Toast.makeText(UploadedVehicles.this, "Vehicle Data Deleted..", Toast.LENGTH_SHORT).show();
-
-            Query checkUser = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("phone").equalTo(phoneNumber);
-                   checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (!snapshot.exists()){
-                                startActivity(new Intent(UploadedVehicles.this, Dashboard.class));
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-        });
-
-    }
 
     @Override
     public void onBackPressed() {

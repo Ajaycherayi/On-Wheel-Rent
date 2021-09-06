@@ -65,8 +65,7 @@ public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageV
     }
 
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
-            View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView imageView;
         public TextView tv_status,tv_name;
@@ -79,7 +78,6 @@ public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageV
             tv_status = itemView.findViewById(R.id.tv_bookStatus);
 
             itemView.setOnClickListener(this);
-            itemView.setOnCreateContextMenuListener(this);
 
         }
 
@@ -95,35 +93,11 @@ public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageV
 
         }
 
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
-            menu.setHeaderTitle("Delete");
-            MenuItem delete = menu.add(Menu.NONE, 1,1,"Delete Vehicle");
-
-            delete.setOnMenuItemClickListener(this);
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-
-            if (mListener != null){
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION){
-                    item.getItemId();
-                    mListener.onDeleteClick(position);
-                    return true;
-                }
-            }
-
-            return false;
-        }
     }
 
     public interface OnItemClickListener{
         void onItemClick(int position);
 
-        void onDeleteClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){

@@ -44,10 +44,10 @@ tools:targetApi="o" >
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="20dp"
-            android:textAllCaps="true"
             android:text="Vehicle Name"
+            android:textAllCaps="true"
             android:textColor="@color/primaryDark"
-            android:textSize="27sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

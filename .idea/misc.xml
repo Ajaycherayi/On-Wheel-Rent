@@ -13,6 +13,7 @@
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/bg_progress.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/ic_back.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/drawable/ic_call.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/about.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_book_vehicle.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_booked_vehicles.xml" value="0.1953125" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_dashborad.xml" value="0.22" />
@@ -27,15 +28,20 @@
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_single_uploaded_vehicles.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/activity_single_vehicle_booked.xml" value="0.1953125" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/add_vehicle.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/card_view_all_vehicle.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/card_view_team_members.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/card_view_uploaded_vehicle.xml" value="0.1" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/category_list.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/contact_us.xml" value="0.1953125" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/dashborad.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/details_one_vehicle_data.xml" value="0.1" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/details_uploaded_vehicles.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/list_uploaded_vehicle.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/login.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/one_uploaded_vehicle.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/otp_verification.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/progress_dialog.xml" value="0.209375" />
+        <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/recycler_view_booked.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/recycler_view_for_booking.xml" value="0.209375" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/recycler_view_uploaded.xml" value="0.1" />
         <entry key="..\:/Users/AJAY/AndroidStudioProjects/OnWheelRent/app/src/main/res/layout/sign_up.xml" value="0.209375" />

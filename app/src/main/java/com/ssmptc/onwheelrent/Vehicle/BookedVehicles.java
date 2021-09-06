@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,7 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
 
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
+    ImageView btn_back;
 
     private ArrayList<VehicleData> list;
     private VehicleBookAdapter vehicleAdapter;
@@ -52,6 +55,8 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
         manager = new SessionManager(getApplicationContext());
         phoneNumber = manager.getPhone();
 
+        btn_back = findViewById(R.id.btn_back);
+
         recyclerView = findViewById(R.id.rv_booked);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,6 +65,13 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
         vehicleAdapter = new VehicleBookAdapter(BookedVehicles.this,list);
         recyclerView.setAdapter(vehicleAdapter);
         vehicleAdapter.setOnItemClickListener(BookedVehicles.this);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles")
                 .addListenerForSingleValueEvent(new ValueEventListener() {

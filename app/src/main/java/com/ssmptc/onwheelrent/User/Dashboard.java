@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.card.MaterialCardView;
@@ -17,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ssmptc.onwheelrent.About;
+import com.ssmptc.onwheelrent.ContactUs;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.Vehicle.BookVehicle;
@@ -27,12 +31,12 @@ import com.ssmptc.onwheelrent.Vehicle.UploadedVehicles;
 public class Dashboard extends AppCompatActivity {
 
 
-    MaterialCardView btn_logOut,btn_exit,btn_rent,btn_rented,btn_book,btn_booked;
-
+    MaterialCardView btn_logOut,btn_exit,btn_rent,btn_rented,btn_book,btn_booked,btn_about,btn_contact;
+    TextView tv_userName;
 
     
     SessionManager manager;
-    String phoneNumber;
+    String phoneNumber,userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,16 @@ public class Dashboard extends AppCompatActivity {
         btn_booked = findViewById(R.id.btn_booked);
         btn_logOut = findViewById(R.id.btn_logOut);
         btn_exit = findViewById(R.id.btn_exit);
+        btn_about = findViewById(R.id.btn_appInfo);
+        btn_contact = findViewById(R.id.btn_contact);
+
+        tv_userName = findViewById(R.id.tv_userName);
 
         manager = new SessionManager(getApplicationContext());
         phoneNumber = manager.getPhone();
+        userName = manager.getName();
+
+        tv_userName.setText("Hai, "+userName);
 
         btn_rent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +75,10 @@ public class Dashboard extends AppCompatActivity {
                 checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.exists())
+                        if (!snapshot.exists()) {
                             Toast.makeText(Dashboard.this, "No Vehicle Details", Toast.LENGTH_SHORT).show();
-                        else
+                            startActivity(new Intent(getApplicationContext(), AddVehicle.class));
+                        }else
                             startActivity(new Intent(getApplicationContext(), UploadedVehicles.class));
                     }
 
@@ -88,7 +100,24 @@ public class Dashboard extends AppCompatActivity {
         btn_booked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BookedVehicles.class));
+
+                FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (!snapshot.exists()){
+                                    Toast.makeText(Dashboard.this, "No vehicles booked", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), BookVehicle.class));
+                                }else
+                                    startActivity(new Intent(getApplicationContext(), BookedVehicles.class));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
             }
         });
 
@@ -107,6 +136,20 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
+        btn_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), About.class));
+            }
+        });
+
+        btn_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ContactUs.class));
+            }
+        });
+
     }
 
     private void logout() {
@@ -114,7 +157,7 @@ public class Dashboard extends AppCompatActivity {
         manager = new SessionManager(getApplicationContext());
 
         //Initialize alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
 
         //Set Title
         builder.setTitle("Log out");

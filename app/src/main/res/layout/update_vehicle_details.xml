@@ -242,7 +242,7 @@ tools:targetApi="o">
                 android:id="@+id/radio_bike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="bike"
+                android:text="Bike"
                 android:textColor="@color/black"
                 app:buttonTint="@color/primaryDark" />
 

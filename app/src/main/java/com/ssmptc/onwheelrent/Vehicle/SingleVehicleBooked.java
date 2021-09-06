@@ -9,13 +9,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
+import com.ssmptc.onwheelrent.User.Dashboard;
 
 public class SingleVehicleBooked extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    private TextView tv_vName, tv_category, tv_vNumber, tv_place, tv_amount, tv_OwnerName, tv_phone;
+    private TextView tv_vName, tv_category, tv_vNumber, tv_place, tv_amount, tv_OwnerName, tv_phone, tv_title;
 
     private String vehicleId, vehicleName, imgUrl, phoneNumber, name,place,ownerPhone;
     private boolean bookStatus;
@@ -43,7 +44,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_vehicle_booked);
+        setContentView(R.layout.details_booked_vehicle);
 
         btn_back = findViewById(R.id.btn_back);
 
@@ -58,6 +59,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
         tv_OwnerName = findViewById(R.id.tv_ownerName);
         tv_phone = findViewById(R.id.tv_phoneNo);
         tv_place = findViewById(R.id.tv_place);
+        tv_title = findViewById(R.id.title_Name);
 
         img_vehicle = findViewById(R.id.img_vehicle);
 
@@ -86,6 +88,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
                 //---------------Get Data From Shop DataBase----------------
                 vehicleName = snapshot.child("vehicleName").getValue(String.class);
                 tv_vName.setText(vehicleName);
+                tv_title.setText(vehicleName);
 
                 tv_vNumber.setText(snapshot.child("vehicleNumber").getValue(String.class));
                 tv_category.setText(snapshot.child("category").getValue(String.class));
@@ -105,7 +108,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
                 Picasso.with(SingleVehicleBooked.this)
                         .load(imgUrl)
                         .placeholder(R.drawable.bg_loading)
-                        .error(R.mipmap.ic_launcher_round)
+                        .error(R.drawable.bg_loading)
                         .into(img_vehicle);
 
 
@@ -114,6 +117,13 @@ public class SingleVehicleBooked extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
@@ -147,7 +157,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
 
     private void unBookVehicle() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 
@@ -166,6 +176,25 @@ public class SingleVehicleBooked extends AppCompatActivity {
                         if (snapshot.exists()) {
                             bookDb.removeValue();
                             userDb.child(vehicleId).removeValue();
+
+                            FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles")
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (!snapshot.exists()){
+                                                Toast.makeText(SingleVehicleBooked.this, "No vehicles booked", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                            }else
+                                                startActivity(new Intent(getApplicationContext(), BookedVehicles.class));
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+
                             startActivity(new Intent(getApplicationContext(),BookedVehicles.class));
                         } else {
                             Toast.makeText(SingleVehicleBooked.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
@@ -193,6 +222,10 @@ public class SingleVehicleBooked extends AppCompatActivity {
         alert.show();
 
     }
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), BookedVehicles.class));
+        finish();
+    }
 
 }
