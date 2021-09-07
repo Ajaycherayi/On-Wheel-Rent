@@ -1,7 +1,6 @@
 package com.ssmptc.onwheelrent.Database;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ProfileViewHolder>{
+public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ImageViewHolder> {
 
-    private final Context mContext;
-    private final List<TeamData> teamDataList;
-    private VehicleBookAdapter.OnItemClickListener mListener;
+    private Context mContext;
+    private List<TeamData> teamDataList;
 
-
-    public TeamAdapter(Context context, List<TeamData> teamData) {
+    public TeamAdapter(Context context, List<TeamData> teamData){
 
         mContext = context;
         teamDataList = teamData;
@@ -33,67 +29,43 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ProfileViewHol
 
     @NonNull
     @Override
-    public TeamAdapter.ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.card_view_all_vehicle,parent,false);
-        return new ProfileViewHolder(v);
+    public TeamAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(mContext).inflate(R.layout.card_view_team_members,parent,false);
+        return new ImageViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TeamAdapter.ProfileViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TeamAdapter.ImageViewHolder holder, int position) {
 
-        TeamData data = teamDataList.get(position);
-        holder.tv_name.setText(currentData.getVehicleName());
-        holder.tv_contact.setText(currentData.getPhone());
-        Glide.with(mContext)
+        TeamData currentData = teamDataList.get(position);
+        holder.tv_name.setText(currentData.getName());
+        holder.tv_phone.setText(currentData.getPhoneNumber());
+        Picasso.with(mContext)
                 .load(currentData.getImgUrl())
-                .placeholder(R.drawable.car_rent)
-                .centerInside()
+                .placeholder(R.drawable.bg_loading)
                 .into(holder.imageView);
-
 
 
     }
 
     @Override
     public int getItemCount() {
-        return vehicleDataList.size();
+        return teamDataList.size();
     }
 
-
-
-    public class ProfileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ImageViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView imageView;
-        public TextView tv_contact,tv_name;
+        public TextView tv_phone,tv_name;
 
-
-        public ProfileViewHolder(View v) {
+        public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.iv_vehicle);
-            tv_name = itemView.findViewById(R.id.tv_vName);
-            tv_contact = itemView.findViewById(R.id.tv_contact);
+            tv_phone = itemView.findViewById(R.id.tv_contact);
+            tv_name = itemView.findViewById(R.id.tv_name);
+            imageView = itemView.findViewById(R.id.iv_member);
 
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            if (mListener != null){
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION){
-                    mListener.onItemClick(position);
-                }
-            }
-        }
     }
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        mListener = listener;
-    }
-
-
 }
