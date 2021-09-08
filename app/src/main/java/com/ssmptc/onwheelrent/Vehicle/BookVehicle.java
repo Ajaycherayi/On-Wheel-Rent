@@ -11,8 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -82,12 +80,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
         vehicleAdapter = new VehicleBookAdapter(BookVehicle.this,list);
         recyclerView.setAdapter(vehicleAdapter);
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        btn_back.setOnClickListener(v -> onBackPressed());
 
 
         search();
@@ -105,61 +98,58 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
     }
 
     private void filter() {
-        drop_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String category = String.valueOf(parent.getItemAtPosition(position));
+        drop_list.setOnItemClickListener((parent, view, position, id) -> {
+            String category = String.valueOf(parent.getItemAtPosition(position));
 
 
-                if (!category.equals("All")){
+            if (!category.equals("All")){
 
-                    FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("category").equalTo(category)
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @SuppressLint("NotifyDataSetChanged")
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot filterSnapshot) {
+                FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("category").equalTo(category)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @SuppressLint("NotifyDataSetChanged")
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot filterSnapshot) {
 
-                                    if (filterSnapshot.exists()){
+                                if (filterSnapshot.exists()){
 
-                                        progressDialog.show();
-                                        list.clear();
+                                    progressDialog.show();
+                                    list.clear();
 
-                                        for (DataSnapshot dataSnapshot  : filterSnapshot.getChildren()){
+                                    for (DataSnapshot dataSnapshot  : filterSnapshot.getChildren()){
 
-                                            VehicleData vehicleData = dataSnapshot.getValue(VehicleData.class);
+                                        VehicleData vehicleData = dataSnapshot.getValue(VehicleData.class);
 
-                                            assert vehicleData != null;
-                                            boolean bookStatus = vehicleData.isBooked();
-                                            if (!bookStatus){
-                                                list.add(vehicleData);
-                                                vehicleAdapter = new VehicleBookAdapter(BookVehicle.this,list);recyclerView.setAdapter(vehicleAdapter);
-                                                vehicleAdapter.notifyDataSetChanged();
-                                                vehicleAdapter.setOnItemClickListener(BookVehicle.this);
-                                            }else {
-                                                list.clear();
-                                                vehicleAdapter.notifyDataSetChanged();
-                                            }
-
+                                        assert vehicleData != null;
+                                        boolean bookStatus = vehicleData.isBooked();
+                                        if (!bookStatus){
+                                            list.add(vehicleData);
+                                            vehicleAdapter = new VehicleBookAdapter(BookVehicle.this,list);recyclerView.setAdapter(vehicleAdapter);
+                                            vehicleAdapter.notifyDataSetChanged();
+                                            vehicleAdapter.setOnItemClickListener(BookVehicle.this);
+                                        }else {
+                                            list.clear();
+                                            vehicleAdapter.notifyDataSetChanged();
                                         }
-                                        progressDialog.dismiss();
 
-                                    }else {
-                                        list.clear();
-                                        vehicleAdapter.notifyDataSetChanged();
                                     }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
                                     progressDialog.dismiss();
-                                    Toast.makeText(BookVehicle.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }else {
-                    loadRecycler();
-                }
 
+                                }else {
+                                    list.clear();
+                                    vehicleAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                progressDialog.dismiss();
+                                Toast.makeText(BookVehicle.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }else {
+                loadRecycler();
             }
+
         });
     }
 

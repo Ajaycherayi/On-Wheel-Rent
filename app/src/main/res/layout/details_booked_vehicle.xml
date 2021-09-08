@@ -43,11 +43,12 @@ tools:targetApi="o" >
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="15dp"
-            android:text="Vehicle Name"
+            android:text="@string/vehicle_name"
             android:textAllCaps="true"
             android:textColor="@color/primaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>
 
@@ -79,7 +80,7 @@ tools:targetApi="o" >
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
             android:textSize="20sp"
-            android:text="Vehicle Name"
+            android:text="@string/vehicle_name"
             android:textColor="@color/black"
             android:layout_marginTop="20dp"/>
 
@@ -98,7 +99,7 @@ tools:targetApi="o" >
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
-            android:text="Vehicle Number"
+            android:text="@string/vehicle_number"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>
@@ -119,7 +120,7 @@ tools:targetApi="o" >
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
-            android:text="Category"
+            android:text="@string/category"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>
@@ -140,7 +141,7 @@ tools:targetApi="o" >
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
-            android:text="Amount/Day"
+            android:text="@string/amount"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>
@@ -160,7 +161,7 @@ tools:targetApi="o" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Owner Name"
+            android:text="@string/owner_name"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>
@@ -180,7 +181,7 @@ tools:targetApi="o" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mobile"
+            android:text="@string/mobile"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>
@@ -201,7 +202,7 @@ tools:targetApi="o" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Place"
+            android:text="@string/place"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>
@@ -228,14 +229,15 @@ tools:targetApi="o" >
                 android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:backgroundTint="@color/light_red"
-                android:text="locate"
+                android:text="@string/locate"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:cornerRadius="5dp"
                 app:icon="@drawable/ic_location"
                 app:strokeColor="@color/active_red"
-                app:strokeWidth="1dp" />
+                app:strokeWidth="1dp"
+                tools:ignore="RelativeOverlap" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_call"
@@ -243,13 +245,14 @@ tools:targetApi="o" >
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:backgroundTint="@color/light_blue"
-                android:text="call"
+                android:text="@string/call"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:cornerRadius="5dp"
                 app:icon="@drawable/ic_call"
                 app:strokeColor="@color/active_blue"
-                app:strokeWidth="1dp" />
+                app:strokeWidth="1dp"
+                tools:ignore="RelativeOverlap" />
 
 
         </RelativeLayout>
@@ -260,7 +263,7 @@ tools:targetApi="o" >
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:text="Vehicle Booked"
+            android:text="@string/vehicle_booked"
             android:textColor="@color/black"
             android:backgroundTint="@color/active_green"
             android:textSize="15sp"

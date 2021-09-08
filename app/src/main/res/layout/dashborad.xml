@@ -20,7 +20,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="300dp"
-    android:background="@color/primary"
+    android:background="@drawable/bg_dashboard_upper"
     android:padding="10dp">
 
     <TextView
@@ -36,35 +36,38 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/dp"
+        android:id="@+id/btn_dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/title"
-        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/user_profile"
-        tools:ignore="ContentDescription" />
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_user_profile"
+        tools:ignore="ContentDescription"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/tv_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dp"
+        android:layout_below="@+id/btn_dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/my_fav_sans_number"
-        android:text="Hai, Ajay"
+        android:text="@string/person_name"
         android:textColor="@color/white"
         android:textSize="23sp"
         android:textStyle="bold" />
 
 </RelativeLayout>
 
-
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-70dp">
+                android:layout_marginTop="-70dp"
+                android:layout_marginHorizontal="5dp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_Rent"
@@ -86,16 +89,17 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:src="@drawable/add_vehicle" />
+                            android:src="@drawable/ic_add_vehicle"
+                            android:contentDescription="@null" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Add Vehicles"
+                            android:text="@string/add"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDark"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -120,16 +124,17 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:src="@drawable/uploaded" />
+                            android:src="@drawable/ic_uploaded"
+                            android:contentDescription="@null" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Uploaded"
+                            android:text="@string/uploaded"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDark"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -137,10 +142,11 @@
 
             </LinearLayout>
 
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="5dp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_book_vehicle"
@@ -162,16 +168,17 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:src="@drawable/book" />
+                            android:src="@drawable/ic_book"
+                            android:contentDescription="@null" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Book Vehicles"
+                            android:text="@string/book"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDark"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -196,16 +203,17 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:src="@drawable/booked" />
+                            android:src="@drawable/ic_booked"
+                            android:contentDescription="@null" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Booked "
+                            android:text="@string/booked"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDark"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -213,10 +221,11 @@
 
             </LinearLayout>
 
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="5dp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_appInfo"
@@ -238,16 +247,17 @@
                             android:layout_height="55dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:src="@drawable/ic_about" />
+                            android:src="@drawable/ic_about"
+                            android:contentDescription="@null" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="App Info"
+                            android:text="@string/appInfo"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDark"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -272,16 +282,17 @@
                             android:layout_height="55dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:src="@drawable/ic_contact" />
+                            android:src="@drawable/ic_contact"
+                            android:contentDescription="@null" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Contact Us"
+                            android:text="@string/contact"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDark"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -292,7 +303,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="5dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_logOut"
@@ -314,16 +326,17 @@
                         android:layout_height="55dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_logout" />
+                        android:src="@drawable/ic_logout"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Log Out"
+                        android:text="@string/logOut"
                         android:textStyle="bold"
                         android:textColor="@color/primaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
@@ -348,16 +361,17 @@
                         android:layout_height="55dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_exit" />
+                        android:src="@drawable/ic_exit"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Exit "
+                        android:text="@string/exit"
                         android:textStyle="bold"
                         android:textColor="@color/primaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 

@@ -15,11 +15,6 @@ public class SessionManager {
         editor.apply();
     }
 
-    public boolean getShopButton(){
-
-        return sharedPreferences.getBoolean("KEY_BUTTON",false);
-    }
-
 
     // Set Login
     public void setUserLogin(boolean login){
@@ -31,8 +26,7 @@ public class SessionManager {
 
         return sharedPreferences.getBoolean("KEY_LOGIN",false);
     }
-    public void setDetails(String name,String phoneNo,String password){
-        editor.putString("KEY_NAME",name);
+    public void setDetails(String phoneNo,String password){
         editor.putString("KEY_PHONE",phoneNo);
         editor.putString("KEY_PASSWORD",password);
 
@@ -40,15 +34,11 @@ public class SessionManager {
 
     }
 
-    public String getName(){
-        return sharedPreferences.getString("KEY_NAME","");
-    }
+
     public String getPhone(){
         return sharedPreferences.getString("KEY_PHONE","");
     }
-    public String getPassword(){
-        return sharedPreferences.getString("KEY_PASSWORD","");
-    }
+
 
 
 

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,13 +14,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
 
@@ -35,7 +33,6 @@ public class SingleVehicleForBook extends AppCompatActivity {
     private TextView tv_vName,tv_category,tv_vNumber,tv_place,tv_amount,tv_OwnerName,tv_phone,tv_title;
 
     private String vehicleId,vehicleName,imgUrl,phoneNumber,name,place,ownerPhone;
-    private boolean bookStatus;
     private DatabaseReference vehicleDb,bookDb,userDb;
 
     SessionManager manager;
@@ -74,7 +71,22 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
         manager = new SessionManager(getApplicationContext());
         phoneNumber = manager.getPhone();
-        name = manager.getName();
+
+        FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Profile")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        name = snapshot.child("name").getValue(String.class);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
         bookDb = FirebaseDatabase.getInstance().getReference("Vehicles").child(vehicleId).child("bookedBy");
         userDb = FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles");
@@ -105,7 +117,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
 
 
-                Glide.with(SingleVehicleForBook.this)
+                Picasso.with(SingleVehicleForBook.this)
                         .load(imgUrl)
                         .placeholder(R.drawable.bg_loading)
                         .error(R.drawable.bg_loading)
@@ -134,25 +146,21 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
         });
 
-        btn_locate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String strUri = "http://maps.google.com/maps?q=" + place ;
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
-                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                startActivity(intent);
-            }
+        btn_locate.setOnClickListener(v -> {
+            String strUri = "http://maps.google.com/maps?q=" + place ;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUri));
+            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+            startActivity(intent);
         });
 
-        btn_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + ownerPhone));
-                startActivity(callIntent);
+        btn_call.setOnClickListener(v -> {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + ownerPhone));
+            startActivity(callIntent);
 
-            }
         });
+
+        btn_back.setOnClickListener(v -> onBackPressed());
 
     }
 
@@ -162,46 +170,38 @@ public class SingleVehicleForBook extends AppCompatActivity {
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("YES", (dialog, which) -> {
 
-                btn_book.setText("Book Vehicle");
-                btn_book.setBackgroundColor(getResources().getColor(R.color.primaryDark));
+            btn_book.setText("Book Vehicle");
+            btn_book.setBackgroundColor(getResources().getColor(R.color.primaryDark));
 
-                vehicleDb.child("booked").setValue(false);
+            vehicleDb.child("booked").setValue(false);
 
-                bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            bookDb.removeValue();
-                            userDb.child(vehicleId).removeValue();
-                        }else{
-                            Toast.makeText(SingleVehicleForBook.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
-                        }
+            bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        bookDb.removeValue();
+                        userDb.child(vehicleId).removeValue();
+                    }else{
+                        Toast.makeText(SingleVehicleForBook.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-
-
-
+                }
+            });
 
 
 
-            }
+
+
+
         });
 
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("NO", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -215,49 +215,41 @@ public class SingleVehicleForBook extends AppCompatActivity {
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("YES", (dialog, which) -> {
 
-                btn_book.setText("Vehicle Booked");
-                btn_book.setBackgroundColor(getResources().getColor(R.color.active_green));
+            btn_book.setText("Vehicle Booked");
+            btn_book.setBackgroundColor(getResources().getColor(R.color.active_green));
 
-                vehicleDb.child("booked").setValue(true);
+            vehicleDb.child("booked").setValue(true);
 
-                bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.exists()){
-                            bookDb.child("phoneNumber").setValue(phoneNumber);
-                            bookDb.child("name").setValue(name);
-                            userDb.child(vehicleId).setValue(vehicleId);
+            bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.exists()){
+                        bookDb.child("phoneNumber").setValue(phoneNumber);
+                        bookDb.child("name").setValue(name);
+                        userDb.child(vehicleId).setValue(vehicleId);
 
 
-                        }else{
-                            Toast.makeText(SingleVehicleForBook.this, "Error occur to book vehicle ", Toast.LENGTH_SHORT).show();
-                        }
+                    }else{
+                        Toast.makeText(SingleVehicleForBook.this, "Error occur to book vehicle ", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-
-
-
+                }
+            });
 
 
 
-            }
+
+
+
         });
 
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("NO", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alert = builder.create();
         alert.show();

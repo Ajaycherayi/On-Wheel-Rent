@@ -4,28 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.ssmptc.onwheelrent.Database.UploadedAdapter;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.Database.VehicleData;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.User.Dashboard;
-
 import java.util.ArrayList;
 
 public class UploadedVehicles extends AppCompatActivity implements UploadedAdapter.OnItemClickListener {
@@ -38,12 +32,10 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
     private ArrayList<VehicleData> list;
     private UploadedAdapter uploadedAdapter;
     DatabaseReference vehicleDb ;
-    private FirebaseStorage ImgStorage;
 
     SessionManager manager;
 
-    private ValueEventListener mDBListener;
-    private String phoneNumber;
+    String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +54,6 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
 
 
         phoneNumber = manager.getPhone();
-        ImgStorage= FirebaseStorage.getInstance();
         vehicleDb = FirebaseDatabase.getInstance().getReference("Vehicles");
         Query checkUser = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("phone").equalTo(phoneNumber);
 
@@ -81,7 +72,7 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
         uploadedAdapter.setOnItemClickListener(UploadedVehicles.this);
 
 
-        mDBListener = checkUser.addValueEventListener(new ValueEventListener() {
+        checkUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -107,12 +98,9 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Dashboard.class));
-                finish();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(),Dashboard.class));
+            finish();
         });
 
     }

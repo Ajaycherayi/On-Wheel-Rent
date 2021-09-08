@@ -8,37 +8,33 @@ import android.os.Handler;
 
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.User.Dashboard;
-import com.ssmptc.onwheelrent.User.Login;
 import com.ssmptc.onwheelrent.User.SignUp;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIMER = 3400;
+    private static final int SPLASH_TIMER = 3400;
     SessionManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.home);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        new Handler().postDelayed(() -> {
 
-                //  startActivity( new Intent(MainActivity.this, ShopSignup.class));
-                //Initialize SessionManager
-                manager = new SessionManager(getApplicationContext());
+            //  startActivity( new Intent(MainActivity.this, ShopSignup.class));
+            //Initialize SessionManager
+            manager = new SessionManager(getApplicationContext());
 
-                if (manager.getUserLogin()){
-                    startActivity(new Intent(getApplicationContext(), Dashboard.class));
-                }else {
-                    Intent intent = new Intent(MainActivity.this, SignUp.class);
-                    startActivity(intent);
-                }
-                finish();
-
+            if (manager.getUserLogin()){
+                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+            }else {
+                Intent intent = new Intent(MainActivity.this, SignUp.class);
+                startActivity(intent);
             }
+            finish();
+
         },SPLASH_TIMER);
 
 

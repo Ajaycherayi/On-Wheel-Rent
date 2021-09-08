@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:background="@drawable/bg_card_user"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoSizeTextType="uniform"
+        android:layout_marginTop="10dp"
+        android:text="@string/change_name"
+        android:textStyle="bold"
+        android:textColor="@color/primaryDark"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"
+        tools:targetApi="o" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_general_list"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="15dp"
+        android:id="@+id/et_userName"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"
+        android:inputType="textMultiLine"
+        android:maxLength="240"
+        android:maxLines="1"
+        android:maxHeight="20dp"
+        app:hintTextColor="@color/hintBlack"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingHorizontal="5dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn_cancel"
+            android:text="@string/cancel"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:backgroundTint="@color/light_red" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn_update"
+            android:text="@string/update"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:backgroundTint="@color/light_green"
+            tools:ignore="UnusedAttribute" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,13 +2,11 @@ package com.ssmptc.onwheelrent.Vehicle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,7 +23,6 @@ import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.Database.VehicleData;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.User.Dashboard;
-
 import java.util.Objects;
 
 public class AddVehicle extends AppCompatActivity {
@@ -36,18 +32,18 @@ public class AddVehicle extends AppCompatActivity {
     Button btn_upload,btn_cancel;
 
     private TextInputLayout et_vNumber,et_vName,et_amount,et_OwnerName,et_place;
-    private TextView tv_phone;
+    TextView tv_phone;
     private ImageView btn_chooseImg;
     private RadioGroup radioGroup;
-    private RadioButton rb_bike,rb_car,rb_other,rb_selected;
+    private RadioButton rb_selected;
     private ProgressDialog progressDialog;
 
     //vars
-    private DatabaseReference root,rootImage ;
+    private DatabaseReference root;
     private StorageReference storageReference;
     private Uri filePath;
     private String phone_Number;
-    private String  vId,vNumber,vName,amount,ownerName,place,imgUrl;
+    private String  vId,vNumber,vName,amount,ownerName,place;
     SessionManager manager;
 
     @Override
@@ -70,9 +66,6 @@ public class AddVehicle extends AppCompatActivity {
         tv_phone = findViewById(R.id.tv_phoneNo);
         et_place = findViewById(R.id.et_place);
         radioGroup = findViewById(R.id.radio_group);
-        rb_bike = findViewById(R.id.radio_bike);
-        rb_car = findViewById(R.id.radio_car);
-        rb_other = findViewById(R.id.radio_other);
 
 
         manager = new SessionManager(getApplicationContext());
@@ -95,27 +88,24 @@ public class AddVehicle extends AppCompatActivity {
             finishAffinity();
         });
 
-        btn_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_upload.setOnClickListener(v -> {
 
-                if (validateVNumber() & validateVName() & validateOwnerName() & validateAmount() & validatePlace()) {
+            if (validateVNumber() & validateVName() & validateOwnerName() & validateAmount() & validatePlace()) {
 
-                    if (validateCategory()){
-                        if (filePath != null) {
-                            uploadData(filePath);
-                            Toast.makeText(AddVehicle.this, "Uploading...", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(AddVehicle.this, "Please Select Image", Toast.LENGTH_SHORT).show();
-                        }
-                    }else {
-                        Toast.makeText(AddVehicle.this, "Please select a category", Toast.LENGTH_SHORT).show();
+                if (validateCategory()){
+                    if (filePath != null) {
+                        uploadData(filePath);
+                        Toast.makeText(AddVehicle.this, "Uploading...", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AddVehicle.this, "Please Select Image", Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(AddVehicle.this, "Please fill all the data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddVehicle.this, "Please select a category", Toast.LENGTH_SHORT).show();
                 }
-
+            }else {
+                Toast.makeText(AddVehicle.this, "Please fill all the data", Toast.LENGTH_SHORT).show();
             }
+
         });
 
 
@@ -208,7 +198,7 @@ public class AddVehicle extends AppCompatActivity {
             et_OwnerName.getEditText().setText("");
             radioGroup.clearCheck();
             filePath = null;
-            btn_chooseImg.setImageResource(R.drawable.ic_add);
+            btn_chooseImg.setImageResource(R.drawable.ic_add_img);
 
             /*-------------------------------------------------------------------------------
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

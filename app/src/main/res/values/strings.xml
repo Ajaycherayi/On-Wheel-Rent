@@ -21,5 +21,77 @@
     <string name="hint_otp">######</string>
     <string name="resend">Resend</string>
 
+    <!--===================== Home Page =====================-->
+
+    <string name="txt_home">Team On Wheel Rent</string>
+
+    <!--===================== DashBoard =====================-->
+
+    <string name="person_name">Person name</string>
+    <string name="add">Add Vehicles</string>
+    <string name="uploaded">Uploaded</string>
+    <string name="book">Book Vehicles</string>
+    <string name="booked">Booked</string>
+    <string name="appInfo">App Info</string>
+    <string name="contact">Contact Us</string>
+    <string name="logOut">Log Out</string>
+    <string name="exit">Exit</string>
+
+    <!--===================== Add Vehicle Page =====================-->
+
+    <string name="add_vehicle_details">Add vehicle details</string>
+    <string name="vehicle_name">Vehicle Name</string>
+    <string name="vehicle_number">Vehicle Number</string>
+    <string name="amount">Amount/Day</string>
+    <string name="contact_details">Contact Details</string>
+    <string name="owner_name">Owner Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="place">Place</string>
+    <string name="category">Category</string>
+    <string name="bike">Bike</string>
+    <string name="car">Car</string>
+    <string name="other">Other</string>
+    <string name="uploadImg">Upload Image</string>
+    <string name="cancel">Cancel</string>
+    <string name="upload">Upload</string>
+
+    <!--===================== card_uploaded Page =====================-->
+
+    <string name="up_name">Vehicle Name : </string>
+    <string name="up_status">Booking Status : </string>
+    <string name="not_booked">Not Booked</string>
+    <string name="card_contact">Contact :</string>
+
+    <!--===================== contact Page =====================-->
+
+    <string name="team">Team </string>
+
+    <!--===================== detail Page =====================-->
+
+    <string name="locate">locate</string>
+    <string name="call">call</string>
+    <string name="vehicle_booked">Vehicle Booked</string>
+    <string name="vehicle_book">Book Vehicle</string>
+    <string name="booking_status">Booking Status : </string>
+    <string name="booked_by">Booked By</string>
+    <string name="b_name">Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="delete_vehicle">Delete Vehicle</string>
+    <string name="edit_vehicle">Edit Vehicle</string>
+    <string name="booked_vehicles">Booked vehicles</string>
+    <string name="search">Search and Book</string>
+    <string name="select_category">Select Category</string>
+    <string name="place_or_name">Place/Name</string>
+    <string name="uploaded_vehicles">Uploaded Vehicles</string>
+
+
+    <!--===================== update Page =====================-->
+
+    <string name="update_details">Update Details</string>
+    <string name="update">Update</string>
+    <string name="change_name">Change Your Name</string>
+
+
+
 
 </resources>

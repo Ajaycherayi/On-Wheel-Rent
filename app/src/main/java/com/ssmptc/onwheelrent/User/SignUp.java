@@ -52,14 +52,7 @@ public class SignUp extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(getApplicationContext(), Login.class));
-
-            }
-        });
+        btn_login.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), Login.class)));
 
         btn_getOtp.setOnClickListener(new View.OnClickListener() {
             @Override

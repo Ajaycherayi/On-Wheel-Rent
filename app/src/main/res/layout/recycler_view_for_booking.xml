@@ -36,10 +36,11 @@ android:background="@color/primary">
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="20dp"
-            android:text="Search and Book"
+            android:text="@string/search"
             android:textColor="@color/primaryDark"
             android:textSize="27sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>
 
@@ -61,9 +62,9 @@ android:background="@color/primary">
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="15sp"
-                android:hint="Category"
+                android:hint="@string/category"
                 android:inputType="none"
-                android:text="Select Category"/>
+                android:text="@string/select_category"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +75,7 @@ android:background="@color/primary">
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_general_list"
-            android:hint="Place/Name"
+            android:hint="@string/place_or_name"
             android:drawableStart="@drawable/ic_search"
             android:drawableTint="@color/primaryDark"
             android:drawablePadding="10dp"

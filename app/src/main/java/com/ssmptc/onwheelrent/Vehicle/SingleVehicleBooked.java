@@ -2,20 +2,16 @@ package com.ssmptc.onwheelrent.Vehicle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,8 +31,8 @@ public class SingleVehicleBooked extends AppCompatActivity {
 
     private TextView tv_vName, tv_category, tv_vNumber, tv_place, tv_amount, tv_OwnerName, tv_phone, tv_title;
 
-    private String vehicleId, vehicleName, imgUrl, phoneNumber, name,place,ownerPhone;
-    private boolean bookStatus;
+    private String vehicleId, vehicleName, imgUrl, phoneNumber,place,ownerPhone;
+    String name;
     private DatabaseReference vehicleDb, bookDb,userDb;
 
     SessionManager manager;
@@ -75,7 +71,22 @@ public class SingleVehicleBooked extends AppCompatActivity {
 
         manager = new SessionManager(getApplicationContext());
         phoneNumber = manager.getPhone();
-        name = manager.getName();
+
+        FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Profile")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        name = snapshot.child("name").getValue(String.class);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
         bookDb = FirebaseDatabase.getInstance().getReference("Vehicles").child(vehicleId).child("bookedBy");
         userDb = FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles");
@@ -120,37 +131,21 @@ public class SingleVehicleBooked extends AppCompatActivity {
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        btn_back.setOnClickListener(v -> onBackPressed());
+
+        btn_book.setOnClickListener(v -> unBookVehicle());
+
+        btn_locate.setOnClickListener(v -> {
+            String strUri = "http://maps.google.com/maps?q=" + place ;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(strUri));
+            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+            startActivity(intent);
         });
 
-        btn_book.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                unBookVehicle();
-            }
-        });
-
-        btn_locate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String strUri = "http://maps.google.com/maps?q=" + place ;
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
-                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                startActivity(intent);
-            }
-        });
-
-        btn_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + ownerPhone));
-                startActivity(callIntent);
-            }
+        btn_call.setOnClickListener(v -> {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + ownerPhone));
+            startActivity(callIntent);
         });
 
     }
@@ -161,62 +156,54 @@ public class SingleVehicleBooked extends AppCompatActivity {
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("YES", (dialog, which) -> {
 
-                btn_book.setText("Book ");
-                btn_book.setBackgroundColor(getResources().getColor(R.color.primaryDark));
+            btn_book.setText("Book ");
+            btn_book.setBackgroundColor(getResources().getColor(R.color.primaryDark));
 
-                vehicleDb.child("booked").setValue(false);
+            vehicleDb.child("booked").setValue(false);
 
-                bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            bookDb.removeValue();
-                            userDb.child(vehicleId).removeValue();
+            bookDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        bookDb.removeValue();
+                        userDb.child(vehicleId).removeValue();
 
-                            FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles")
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (!snapshot.exists()){
-                                                Toast.makeText(SingleVehicleBooked.this, "No vehicles booked", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(getApplicationContext(), Dashboard.class));
-                                            }else
-                                                startActivity(new Intent(getApplicationContext(), BookedVehicles.class));
-                                        }
+                        FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles")
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (!snapshot.exists()){
+                                            Toast.makeText(SingleVehicleBooked.this, "No vehicles booked", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                        }else
+                                            startActivity(new Intent(getApplicationContext(), BookedVehicles.class));
+                                    }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                        }
-                                    });
+                                    }
+                                });
 
 
-                            startActivity(new Intent(getApplicationContext(),BookedVehicles.class));
-                        } else {
-                            Toast.makeText(SingleVehicleBooked.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
-                        }
+                        startActivity(new Intent(getApplicationContext(),BookedVehicles.class));
+                    } else {
+                        Toast.makeText(SingleVehicleBooked.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                }
+            });
 
 
-            }
         });
 
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("NO", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alert = builder.create();
         alert.show();

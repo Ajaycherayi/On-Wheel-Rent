@@ -26,7 +26,7 @@ android:background="@color/primary">
             android:contentDescription="@null"
             android:focusable="true"
             android:src="@drawable/ic_back"
-            app:tint="@color/black" />
+            app:tint="@color/primaryDark" />
 
 
         <TextView
@@ -36,7 +36,7 @@ android:background="@color/primary">
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="20dp"
-            android:text="Booked vehicles"
+            android:text="@string/booked_vehicles"
             android:textColor="@color/primaryDark"
             android:textSize="27sp"
             android:textStyle="bold" />

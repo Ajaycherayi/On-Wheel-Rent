@@ -86,40 +86,37 @@ public class OtpVerification extends AppCompatActivity {
 
         CountTimer();
 
-        btn_signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_signUp.setOnClickListener(v -> {
 
-                if (!validateOtp()) {
-                    return;
-                }
-                //Initialize ProgressDialog
-                progressDialog = new ProgressDialog(OtpVerification.this);
-                progressDialog.show();
-                progressDialog.setCancelable(false);
-                progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            if (!validateOtp()) {
+                return;
+            }
+            //Initialize ProgressDialog
+            progressDialog = new ProgressDialog(OtpVerification.this);
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                String enteredOtp = et_otp.getText().toString();
+            String enteredOtp = et_otp.getText().toString();
 
 
-                if (getOtp != null) {
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
+            if (getOtp != null) {
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);
+                FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
 
-                            storeNewUserData();
+                        storeNewUserData();
 
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(OtpVerification.this, "Error occur", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(OtpVerification.this, "Error occur", Toast.LENGTH_SHORT).show();
+                    }
 
-                    });
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(OtpVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
-                }
+                });
+            } else {
+                progressDialog.dismiss();
+                Toast.makeText(OtpVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -219,12 +216,11 @@ public class OtpVerification extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                String _name = snapshot.child(phoneNumber).child("Profile").child("name").getValue(String.class);
                 String _phoneNo = snapshot.child(phoneNumber).child("Profile").child("phoneNumber").getValue(String.class);
                 String _password = snapshot.child(phoneNumber).child("Profile").child("password").getValue(String.class);
 
                 manager.setUserLogin(true);
-                manager.setDetails(_name, _phoneNo, _password);
+                manager.setDetails(_phoneNo, _password);
 
                 progressDialog.dismiss();
 

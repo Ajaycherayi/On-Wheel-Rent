@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,11 +40,10 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
     private TextView tv_vName,tv_category,tv_vNumber,tv_place,tv_amount,tv_OwnerName,tv_phone;
 
-    private String vehicleId,vehicleName,imgUrl,phoneNumber,name,bookedPhoneNumber=null;
-    private boolean bookStatus;
-
+    private String vehicleId,vehicleName,imgUrl,phoneNumber,bookedPhoneNumber=null;
+    String name;
     private FirebaseStorage ImgStorage;
-    private DatabaseReference vehicleDb,bookDb,userDb;
+    DatabaseReference vehicleDb,bookDb,userDb;
 
     SessionManager manager;
 
@@ -105,7 +102,21 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
         manager = new SessionManager(getApplicationContext());
         phoneNumber = manager.getPhone();
-        name = manager.getName();
+
+        FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Profile")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        name = snapshot.child("name").getValue(String.class);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         bookDb = FirebaseDatabase.getInstance().getReference("Vehicles").child(vehicleId).child("bookedBy");
         userDb = FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles");
@@ -155,38 +166,22 @@ public class SingleUploadedVehicles extends AppCompatActivity {
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        btn_back.setOnClickListener(v -> onBackPressed());
+
+        btn_call.setOnClickListener(v -> {
+
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + bookedPhoneNumber));
+            startActivity(callIntent);
+
         });
 
-        btn_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_delete.setOnClickListener(v -> onDelete());
 
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + bookedPhoneNumber));
-                startActivity(callIntent);
-
-            }
-        });
-
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onDelete();
-            }
-        });
-
-        btn_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SingleUploadedVehicles.this, UpdateVehicleDetails.class);
-                intent.putExtra("VehicleId",vehicleId); // Pass Shop Id value To ShopDetailsSingleView
-                startActivity(intent);
-            }
+        btn_edit.setOnClickListener(v -> {
+            Intent intent = new Intent(SingleUploadedVehicles.this, UpdateVehicleDetails.class);
+            intent.putExtra("VehicleId",vehicleId); // Pass Shop Id value To ShopDetailsSingleView
+            startActivity(intent);
         });
 
     }
@@ -199,57 +194,32 @@ public class SingleUploadedVehicles extends AppCompatActivity {
         builder.setTitle("Booking");
         builder.setMessage("Are you sure to Book ?");
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("YES", (dialog, which) -> {
 
 
 
-                StorageReference imageRef = ImgStorage.getReferenceFromUrl(imgUrl);
+            StorageReference imageRef = ImgStorage.getReferenceFromUrl(imgUrl);
 
-                imageRef.delete().addOnSuccessListener(aVoid -> {
+            imageRef.delete().addOnSuccessListener(aVoid -> {
 
-                    DatabaseReference deleteDb = FirebaseDatabase.getInstance().getReference("Vehicles");
-                    deleteDb.child(vehicleId).removeValue();
+                DatabaseReference deleteDb = FirebaseDatabase.getInstance().getReference("Vehicles");
+                deleteDb.child(vehicleId).removeValue();
 
-                    if (bookedPhoneNumber != null){
+                if (bookedPhoneNumber != null){
 
-                        DatabaseReference removeBooked = FirebaseDatabase.getInstance().getReference("Users").child(bookedPhoneNumber).child("bookedVehicles");
+                    DatabaseReference removeBooked = FirebaseDatabase.getInstance().getReference("Users").child(bookedPhoneNumber).child("bookedVehicles");
 
-                        removeBooked.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                if (snapshot.exists()) {
-                                    removeBooked.child(vehicleId).removeValue();
-                                    startActivity(new Intent(getApplicationContext(),UploadedVehicles.class));
-                                } else {
-                                    Toast.makeText(SingleUploadedVehicles.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                    }else {
-                        startActivity(new Intent(getApplicationContext(),UploadedVehicles.class));
-                    }
-
-
-
-                    Toast.makeText(SingleUploadedVehicles.this, "Vehicle Data Deleted..", Toast.LENGTH_SHORT).show();
-
-                    Query checkUser = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("phone").equalTo(phoneNumber);
-                    checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    removeBooked.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (!snapshot.exists()){
-                                startActivity(new Intent(SingleUploadedVehicles.this, Dashboard.class));
+
+                            if (snapshot.exists()) {
+                                removeBooked.child(vehicleId).removeValue();
+                                startActivity(new Intent(getApplicationContext(),UploadedVehicles.class));
+                            } else {
+                                Toast.makeText(SingleUploadedVehicles.this, "Book doesn't exist  ", Toast.LENGTH_SHORT).show();
                             }
+
                         }
 
                         @Override
@@ -258,17 +228,34 @@ public class SingleUploadedVehicles extends AppCompatActivity {
                         }
                     });
 
+                }else {
+                    startActivity(new Intent(getApplicationContext(),UploadedVehicles.class));
+                }
+
+
+
+                Toast.makeText(SingleUploadedVehicles.this, "Vehicle Data Deleted..", Toast.LENGTH_SHORT).show();
+
+                Query checkUser = FirebaseDatabase.getInstance().getReference("Vehicles").orderByChild("phone").equalTo(phoneNumber);
+                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists()){
+                            startActivity(new Intent(SingleUploadedVehicles.this, Dashboard.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
                 });
 
-            }
+            });
+
         });
 
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("NO", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alert = builder.create();
         alert.show();

@@ -4,12 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,10 +42,11 @@ public class Dashboard extends AppCompatActivity {
 
     MaterialCardView btn_logOut,btn_exit,btn_rent,btn_rented,btn_book,btn_booked,btn_about,btn_contact;
     TextView tv_userName;
+    ImageView btn_dp;
 
     
     SessionManager manager;
-    String phoneNumber,userName;
+    String phoneNumber,userName,currentName,newName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +62,30 @@ public class Dashboard extends AppCompatActivity {
         btn_about = findViewById(R.id.btn_appInfo);
         btn_contact = findViewById(R.id.btn_contact);
 
+        btn_dp = findViewById(R.id.btn_dp);
+
         tv_userName = findViewById(R.id.tv_userName);
 
         manager = new SessionManager(getApplicationContext());
         phoneNumber = manager.getPhone();
-        userName = manager.getName();
+       // userName = manager.getName();
 
-        tv_userName.setText("Hai, "+userName);
+
+        FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Profile")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        tv_userName.setText("Hai, "+snapshot.child("name").getValue(String.class));
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         btn_rent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +111,8 @@ public class Dashboard extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+
+                        Toast.makeText(Dashboard.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -121,12 +150,7 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        btn_logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
+        btn_logOut.setOnClickListener(v -> logout());
 
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +171,85 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ContactUs.class));
+            }
+        });
+
+        btn_dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                final Dialog dialog= new Dialog(Dashboard.this);
+
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.change_user_name);
+
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setWindowAnimations(R.style.BottomDialog);
+                dialog.getWindow().setGravity(Gravity.CENTER);
+
+                Button btn_update = dialog.findViewById(R.id.btn_update);
+                EditText et_name = dialog.findViewById(R.id.et_userName);
+                Button btn_cancel  = dialog.findViewById(R.id.btn_cancel);
+
+
+                FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Profile")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                currentName = snapshot.child("name").getValue(String.class);
+                                et_name.setText(snapshot.child("name").getValue(String.class));
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btn_update.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onClick(View v) {
+
+                        if (et_name.getText().toString().trim().isEmpty()){
+                            Toast.makeText(Dashboard.this, "Do not empty Name", Toast.LENGTH_SHORT).show();
+                        }else {
+                            newName = et_name.getText().toString();
+
+
+                            if (currentName.equals(newName)) {
+                                Toast.makeText(Dashboard.this, "Same user name", Toast.LENGTH_SHORT).show();
+                            }else {
+                                FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Profile")
+                                        .child("name").setValue(newName);
+                                tv_userName.setText("Hai, "+newName);
+                                Toast.makeText(Dashboard.this, "User name Updated", Toast.LENGTH_SHORT).show();
+                            }
+                            dialog.dismiss();
+
+                        }
+
+
+
+                    }
+                });
+
+
+
+
             }
         });
 
@@ -171,7 +274,9 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 manager.setUserLogin(false);
-                manager.setDetails("","","");
+                manager.setDetails("","");
+
+                manager.logoutUserFromSession();
 
                 
                 //activity.finishAffinity();

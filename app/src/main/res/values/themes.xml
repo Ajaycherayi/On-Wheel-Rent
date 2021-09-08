@@ -25,4 +25,10 @@
         <item name="android:background">@color/primaryDark</item>
     </style>
 
+    <!--- Bottom Dialog -->
+    <style name="BottomDialog" >
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
 </resources>

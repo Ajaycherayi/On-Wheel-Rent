@@ -4,18 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.Database.VehicleBookAdapter;
@@ -33,7 +29,6 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
 
     private ArrayList<VehicleData> list;
     private VehicleBookAdapter vehicleAdapter;
-    Query vehicleDb ;
 
     SessionManager manager;
 
@@ -66,12 +61,7 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
         recyclerView.setAdapter(vehicleAdapter);
         vehicleAdapter.setOnItemClickListener(BookedVehicles.this);
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        btn_back.setOnClickListener(v -> onBackPressed());
 
         FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles")
                 .addListenerForSingleValueEvent(new ValueEventListener() {

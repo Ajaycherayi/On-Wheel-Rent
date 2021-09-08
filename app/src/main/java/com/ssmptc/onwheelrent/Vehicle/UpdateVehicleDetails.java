@@ -3,38 +3,28 @@ package com.ssmptc.onwheelrent.Vehicle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.Database.SessionManager;
-import com.ssmptc.onwheelrent.Database.UploadedAdapter;
-import com.ssmptc.onwheelrent.Database.VehicleData;
 import com.ssmptc.onwheelrent.R;
-import com.ssmptc.onwheelrent.User.Dashboard;
-
 import java.util.Objects;
 
 public class UpdateVehicleDetails extends AppCompatActivity {
@@ -42,7 +32,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
     String vehicleId;
 
     ImageView btn_back;
-    private  Button btn_update,btn_cancel;
+    Button btn_update,btn_cancel;
 
     private TextInputLayout et_vNumber,et_vName,et_amount,et_OwnerName,et_place;
     private ImageView btn_chooseImg;
@@ -51,13 +41,12 @@ public class UpdateVehicleDetails extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     //vars
-    private DatabaseReference root,rootImage,reference ;
+    private DatabaseReference reference ;
     private StorageReference storageReference;
     private FirebaseStorage ImgStorage;
     private Uri filePath;
-    private String phone_Number;
-    private String  vId,vNumber,vName,amount,ownerName,place,imgUrl;
-    private Boolean ImgPick = false;
+    String phone_Number;
+    private  String  imgUrl;
     SessionManager manager;
 
     @Override
@@ -98,13 +87,9 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
         loadData();
 
-        btn_back.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        btn_back.setOnClickListener(v -> onBackPressed());
 
-        btn_cancel.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        btn_cancel.setOnClickListener(v -> onBackPressed());
 
         btn_update.setOnClickListener(v -> updateData());
 
@@ -118,7 +103,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
     private void updateData() {
 
-        if (!validateVNumber() & !validateVName() & !validateOwnerName() & !validateAmount() & !validatePlace()) {
+        if (!validateVNumber() & !validateVName() & !validateOwnerName() & !validateAmount() & !validatePlace() & !validateCategory()) {
 
                    return;
         }
@@ -190,9 +175,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
         if (imgUrl != null){
             StorageReference imageRef = ImgStorage.getReferenceFromUrl(imgUrl);
 
-            imageRef.delete().addOnSuccessListener(aVoid -> {
-                reference.child("imgUrl").removeValue();
-            });
+            imageRef.delete().addOnSuccessListener(aVoid -> reference.child("imgUrl").removeValue());
 
         }
 
@@ -202,8 +185,6 @@ public class UpdateVehicleDetails extends AppCompatActivity {
         fileReference.putFile(uri).addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri1 -> {
 
             reference.child("imgUrl").setValue(uri1.toString());
-
-            ImgPick = true;
 
             progressDialog.dismiss();
 

@@ -96,13 +96,12 @@ public class Login extends AppCompatActivity {
                         et_phoneNumber.getEditText().setError(null);
 
                         //Get User data From DataBase
-                        String _name = snapshot.child(_completePhoneNumber).child("Profile").child("name").getValue(String.class);
                         String _phoneNo = snapshot.child(_completePhoneNumber).child("Profile").child("phoneNumber").getValue(String.class);
                         String _password = snapshot.child(_completePhoneNumber).child("Profile").child("password").getValue(String.class);
 
 
                         manager.setUserLogin(true); //Set User Login Session
-                        manager.setDetails(_name, _phoneNo, _password); //Add Data To User Session manager
+                        manager.setDetails( _phoneNo, _password); //Add Data To User Session manager
                         // Intent to Next Activity
                         startActivity(new Intent(getApplicationContext(), Dashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         finish();

@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginVertical="5dp"
-            android:layout_marginHorizontal="8dp"/>
+            android:layout_marginHorizontal="8dp"
+            android:contentDescription="@null" />
 
 
 
@@ -37,8 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:text="Vehicle Name :"
+                android:text="@string/vehicle_name"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -46,7 +46,6 @@
                 android:id="@+id/tv_vName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -60,8 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:text="Contact :"
+                android:text="@string/card_contact"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -69,7 +67,6 @@
                 android:id="@+id/tv_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
