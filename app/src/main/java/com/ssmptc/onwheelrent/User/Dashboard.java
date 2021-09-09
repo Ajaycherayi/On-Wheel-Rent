@@ -25,12 +25,14 @@ import android.widget.Toast;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.onwheelrent.About;
 import com.ssmptc.onwheelrent.ContactUs;
 import com.ssmptc.onwheelrent.Database.SessionManager;
+import com.ssmptc.onwheelrent.Database.VehicleData;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.Vehicle.BookVehicle;
 import com.ssmptc.onwheelrent.Vehicle.BookedVehicles;
@@ -235,6 +237,35 @@ public class Dashboard extends AppCompatActivity {
                             }else {
                                 FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Profile")
                                         .child("name").setValue(newName);
+                                FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("bookedVehicles")
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                if (snapshot.exists()){
+                                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                        String vehicleId = dataSnapshot.getValue(String.class);
+                                                        assert vehicleId != null;
+                                                        DatabaseReference changeName =  FirebaseDatabase.getInstance().getReference("Vehicles").child(vehicleId).child("bookedBy");
+
+                                                        changeName.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot bookSnapshot) {
+                                                                changeName.child("name").setValue(newName);
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                Toast.makeText(Dashboard.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                Toast.makeText(Dashboard.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                 tv_userName.setText("Hai, "+newName);
                                 Toast.makeText(Dashboard.this, "User name Updated", Toast.LENGTH_SHORT).show();
                             }

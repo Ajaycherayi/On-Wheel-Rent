@@ -79,6 +79,8 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
                                             for (DataSnapshot bSnapshot : bookSnapshot.getChildren()) {
 
                                                 VehicleData vehicleData = bSnapshot.getValue(VehicleData.class);
+                                                assert vehicleData != null;
+                                                vehicleData.setId (dataSnapshot.getKey());
                                                 list.add(vehicleData);
 
                                             }
@@ -132,7 +134,7 @@ public class BookedVehicles extends AppCompatActivity implements VehicleBookAdap
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(BookedVehicles.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

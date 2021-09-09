@@ -7,7 +7,7 @@ public class VehicleData {
     public VehicleData() {
     }
 
-    public VehicleData(String id, String vehicleNumber, String vehicleName,String category, String amount, String ownerName, String phone, String place, String imgUrl,boolean booked) {
+    public VehicleData(String id, String vehicleName,String vehicleNumber,String category, String amount, String ownerName, String phone, String place, String imgUrl,boolean booked) {
         this.id = id;
         this.vehicleNumber = vehicleNumber;
         this.vehicleName = vehicleName;
@@ -47,6 +47,14 @@ public class VehicleData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public void setVehicleNumber(String vNumber) {

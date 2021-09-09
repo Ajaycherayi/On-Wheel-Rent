@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.Database.UserData;
 import com.ssmptc.onwheelrent.R;
+import com.ssmptc.onwheelrent.Vehicle.SingleUploadedVehicles;
 
 import java.util.concurrent.TimeUnit;
 
@@ -230,7 +231,7 @@ public class OtpVerification extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(OtpVerification.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

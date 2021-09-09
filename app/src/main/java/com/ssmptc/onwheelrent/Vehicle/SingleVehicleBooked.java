@@ -84,7 +84,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(SingleVehicleBooked.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -184,7 +184,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-
+                                        Toast.makeText(SingleVehicleBooked.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -197,7 +197,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Toast.makeText(SingleVehicleBooked.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 

@@ -54,4 +54,23 @@ public class TeamData {
         return imgUrl;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setInsta(String insta) {
+        this.insta = insta;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public void setDescTitle(String descTitle) {
+        this.descTitle = descTitle;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 }

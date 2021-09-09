@@ -59,7 +59,7 @@ public class AddVehicle extends AppCompatActivity {
         btn_cancel= findViewById(R.id.btn_cancel);
 
         // Update Details
-        et_vNumber = findViewById(R.id.et_vNumber);
+        et_vNumber = findViewById(R.id.et_vehicleNumber);
         et_vName = findViewById(R.id.et_vName);
         et_amount = findViewById(R.id.et_amount);
         et_OwnerName = findViewById(R.id.et_ownerName);
@@ -183,7 +183,7 @@ public class AddVehicle extends AppCompatActivity {
             if (vId != null) {
 
 
-                VehicleData vData = new VehicleData(vId,vNumber,vName,category,amount,ownerName,phone_Number,place,uri1.toString(), false);
+                VehicleData vData = new VehicleData(vId,vName,vNumber,category,amount,ownerName,phone_Number,place,uri1.toString(), false);
                 root.child(vId).setValue(vData);
 
             }
@@ -199,6 +199,7 @@ public class AddVehicle extends AppCompatActivity {
             radioGroup.clearCheck();
             filePath = null;
             btn_chooseImg.setImageResource(R.drawable.ic_add_img);
+            startActivity(new Intent(AddVehicle.this,Dashboard.class));
 
             /*-------------------------------------------------------------------------------
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

@@ -130,7 +130,7 @@ public class UploadedVehicles extends AppCompatActivity implements UploadedAdapt
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(UploadedVehicles.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

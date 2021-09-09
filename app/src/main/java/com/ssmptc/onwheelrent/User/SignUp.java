@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.onwheelrent.R;
+import com.ssmptc.onwheelrent.Vehicle.SingleUploadedVehicles;
 
 import java.util.concurrent.TimeUnit;
 
@@ -103,7 +104,7 @@ public class SignUp extends AppCompatActivity {
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
+                                Toast.makeText(SignUp.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
 

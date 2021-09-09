@@ -129,7 +129,7 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(SingleVehicleForBook.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -191,14 +191,9 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Toast.makeText(SingleVehicleForBook.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
-
-
-
-
 
         });
 
@@ -239,14 +234,9 @@ public class SingleVehicleForBook extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Toast.makeText(SingleVehicleForBook.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
-
-
-
-
 
         });
 

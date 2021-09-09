@@ -185,13 +185,14 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
                     VehicleData vehicleData = dataSnapshot.getValue(VehicleData.class);
+                    assert vehicleData != null;
+                    vehicleData.setId (dataSnapshot.getKey());
                     list.add(vehicleData);
                     vehicleAdapter = new VehicleBookAdapter(BookVehicle.this,list);
                     recyclerView.setAdapter(vehicleAdapter);
                     vehicleAdapter.notifyDataSetChanged();
                     vehicleAdapter.setOnItemClickListener(BookVehicle.this);
                 }
-
                 progressDialog.dismiss();
 
             }
@@ -230,7 +231,7 @@ public class BookVehicle extends AppCompatActivity implements VehicleBookAdapter
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(BookVehicle.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

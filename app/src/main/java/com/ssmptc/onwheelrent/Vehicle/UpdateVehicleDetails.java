@@ -162,7 +162,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(UpdateVehicleDetails.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         progressDialog.dismiss();
@@ -243,7 +243,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(UpdateVehicleDetails.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

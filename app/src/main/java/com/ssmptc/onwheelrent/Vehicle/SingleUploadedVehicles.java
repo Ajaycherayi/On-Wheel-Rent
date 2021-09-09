@@ -70,14 +70,10 @@ public class SingleUploadedVehicles extends AppCompatActivity {
         tv_bookedPhone.setVisibility(View.GONE);
         btn_call.setVisibility(View.GONE);
 
-
-
-
         btn_back = findViewById(R.id.btn_back);
 
         btn_edit = findViewById(R.id.btn_edit);
         btn_delete = findViewById(R.id.btn_delete);
-
 
         tv_vName = findViewById(R.id.tv_vName);
         tv_vNumber = findViewById(R.id.tv_vNumber);
@@ -115,7 +111,7 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(SingleUploadedVehicles.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -163,7 +159,7 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(SingleUploadedVehicles.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -197,8 +193,6 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
         builder.setPositiveButton("YES", (dialog, which) -> {
 
-
-
             StorageReference imageRef = ImgStorage.getReferenceFromUrl(imgUrl);
 
             imageRef.delete().addOnSuccessListener(aVoid -> {
@@ -225,14 +219,13 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Toast.makeText(SingleUploadedVehicles.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
                 }else {
                     startActivity(new Intent(getApplicationContext(),UploadedVehicles.class));
                 }
-
 
 
                 Toast.makeText(SingleUploadedVehicles.this, "Vehicle Data Deleted..", Toast.LENGTH_SHORT).show();
@@ -248,7 +241,7 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(SingleUploadedVehicles.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -260,9 +253,6 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
-
-
-
 
 
     }
@@ -292,11 +282,9 @@ public class SingleUploadedVehicles extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(SingleUploadedVehicles.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
     }
