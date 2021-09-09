@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
 import java.util.Objects;
@@ -217,7 +218,7 @@ public class UpdateVehicleDetails extends AppCompatActivity {
 
                 imgUrl = snapshot.child("imgUrl").getValue(String.class);
 
-                Picasso.with(UpdateVehicleDetails.this)
+                Glide.with(UpdateVehicleDetails.this)
                         .load(imgUrl)
                         .placeholder(R.drawable.bg_loading)
                         .error(R.drawable.bg_loading)

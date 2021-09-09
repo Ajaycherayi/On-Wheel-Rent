@@ -57,14 +57,14 @@
 
     <!--===================== card_uploaded Page =====================-->
 
-    <string name="up_name">Vehicle Name : </string>
-    <string name="up_status">Booking Status : </string>
+    <string name="up_name">Vehicle Name :\t</string>
+    <string name="up_status">Booking Status :\t</string>
     <string name="not_booked">Not Booked</string>
-    <string name="card_contact">Contact :</string>
+    <string name="card_contact">Contact :\t</string>
 
     <!--===================== contact Page =====================-->
 
-    <string name="team">Team </string>
+    <string name="team">Team\t</string>
 
     <!--===================== detail Page =====================-->
 
@@ -72,7 +72,7 @@
     <string name="call">call</string>
     <string name="vehicle_booked">Vehicle Booked</string>
     <string name="vehicle_book">Book Vehicle</string>
-    <string name="booking_status">Booking Status : </string>
+    <string name="booking_status">Booking Status :\t</string>
     <string name="booked_by">Booked By</string>
     <string name="b_name">Name</string>
     <string name="mobile_number">Mobile Number</string>

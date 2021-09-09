@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.ssmptc.onwheelrent.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +43,11 @@ public class VehicleBookAdapter extends RecyclerView.Adapter<VehicleBookAdapter.
         VehicleData currentData = vehicleDataList.get(position);
         holder.tv_name.setText(currentData.getVehicleName());
         holder.tv_contact.setText(currentData.getPhone());
-        Picasso.with(mContext)
-                .load(currentData.getImgUrl())
-                .placeholder(R.drawable.bg_loading)
-                .into(holder.imageView);
 
+        Glide.with(mContext)
+                .load(currentData.getImgUrl())
+                .placeholder(R.drawable.bg_loading_light)
+                .into(holder.imageView);
 
 
     }

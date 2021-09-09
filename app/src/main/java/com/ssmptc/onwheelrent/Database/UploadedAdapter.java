@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
 import com.ssmptc.onwheelrent.R;
 
 import java.util.List;
@@ -46,9 +47,9 @@ public class UploadedAdapter extends RecyclerView.Adapter<UploadedAdapter.ImageV
             holder.tv_status.setText(" Not Booked");
         }
 
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(currentData.getImgUrl())
-                .placeholder(R.drawable.bg_loading)
+                .placeholder(R.drawable.bg_loading_light)
                 .into(holder.imageView);
 
     }

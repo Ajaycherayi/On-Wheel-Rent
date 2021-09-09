@@ -12,7 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
 import com.ssmptc.onwheelrent.R;
 
 import java.net.URLEncoder;
@@ -92,12 +93,10 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ImageViewHolde
             Toast.makeText(mContext, "Contact "+name+" via Instagram", Toast.LENGTH_SHORT).show();
         });
 
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(currentData.getImgUrl())
                 .placeholder(R.drawable.bg_loading)
                 .into(holder.imageView);
-
-
 
 
     }

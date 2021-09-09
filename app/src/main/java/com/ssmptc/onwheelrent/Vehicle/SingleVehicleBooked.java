@@ -12,12 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 import com.ssmptc.onwheelrent.Database.SessionManager;
 import com.ssmptc.onwheelrent.R;
 import com.ssmptc.onwheelrent.User.Dashboard;
@@ -116,7 +117,7 @@ public class SingleVehicleBooked extends AppCompatActivity {
                 progressDialog.dismiss();
 
 
-                Picasso.with(SingleVehicleBooked.this)
+                Glide.with(SingleVehicleBooked.this)
                         .load(imgUrl)
                         .placeholder(R.drawable.bg_loading)
                         .error(R.drawable.bg_loading)
